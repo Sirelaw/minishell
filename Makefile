@@ -22,7 +22,7 @@ LIBFT_DIR = ./libft/
 # Source files and object files
 SRC_FILES = main.c signal_handling/signal_handling.c lexer/lex_new_token.c \
 		lexer/lex_new.c lexer/lex_next_token.c lexer/lex_peek_char.c \
-		lexer/lex_read_char.c lexer/lex_valid_syntax.c
+		lexer/lex_read_char.c lexer/lex_valid_syntax.c env_expand/env_expand.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -41,6 +41,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)lexer
 	@mkdir -p $(OBJ_DIR)signal_handling
+	@mkdir -p $(OBJ_DIR)env_expand
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@gcc $(FLAGS) $(CPFLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<

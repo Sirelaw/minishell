@@ -17,4 +17,10 @@ typedef struct s_shell_env
 	int		last_exit_code;
 }				t_shell_env;
 
+/*
+var is passed as the string "$VAR" into the function along with the envp
+pointer.
+*/
+char	*env_expand(char **envp, char *var);
+
 #endif
