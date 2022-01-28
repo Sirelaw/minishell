@@ -1,35 +1,74 @@
+# Name of the program
 NAME = minishell
 
-CC = gcc
+# Color codes
 
-LIBFT_DIR =	./libft/
-LIBFT = 	$(addprefix $(LIBFT_DIR), libft.a)
+RESET	= \033[0m
+GREEN	= \033[32m
+YELLOW	= \033[33m
+BLUE	= \033[34m
 
-CFLAGS = 	-Wall -Wextra -Werror \
-			-Iinc \
-			-I$(LIBFT_DIR) \
-			-I/opt/homebrew/Cellar/readline/8.1.1/include
+# Compiling flags
+FLAGS = -Wall -Wextra -Werror
+LFLAGS = -L$$HOME/.brew/opt/readline/lib -lreadline
+CPFLAGS = -I$$HOME/.brew/opt/readline/include
 
-LFLAGS =	-L. $(LIBFT) \
-			-L/opt/homebrew/Cellar/readline/8.1.1/lib \
-			-lreadline
+# Folders
+SRC_DIR = ./src/
+OBJ_DIR = ./obj/
+INC_DIR = ./inc/
+LIBFT_DIR = ./libft/
 
-SRC =	src/main.c \
-		src/signal_handling/signal_handling.c \
-		src/lexer/lex_new_token.c \
-		src/lexer/lex_new.c \
-		src/lexer/lex_next_token.c \
-		src/lexer/lex_peek_char.c \
-		src/lexer/lex_read_char.c \
-		src/lexer/lex_valid_syntax.c
-		
+# Source files and object files
+SRC_FILES = main.c signal_handling/signal_handling.c lexer/lex_new_token.c \
+		lexer/lex_new.c lexer/lex_next_token.c lexer/lex_peek_char.c \
+		lexer/lex_read_char.c lexer/lex_valid_syntax.c
 
-OBJ = $(SRC:.c=.o)
+OBJ_FILES = $(SRC_FILES:.c=.o)
 
-all: $(NAME)
+# Paths
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
 
-$(NAME): $(SRC) $(LIBFT)
-	@$(CC) $(CFLAGS) $(LFLAGS) $(SRC) -o $(NAME)
+# Libft linkers
+LNK  = -L $(LIBFT_DIR) -lft 
 
+# all rule
+all: obj $(LIBFT) $(NAME)
+
+obj:
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)lexer
+	@mkdir -p $(OBJ_DIR)signal_handling
+
+$(OBJ_DIR)%.o:$(SRC_DIR)%.c
+	@gcc $(FLAGS) $(CPFLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
 $(LIBFT):
-	@make -C libft
+	@make -C $(LIBFT_DIR)
+
+# Compiling
+$(NAME): $(OBJ)
+	@echo "$(YELLOW)\n      -> Building $(NAME) ...$(RESET)"
+	@gcc $(OBJ) $(LFLAGS) $(LNK) -lm -o $(NAME)
+	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
+
+# clean rule
+clean:
+	@echo "$(BLUE)***   Deleting all objects from $(NAME)   ...   ***$(RESET)"
+	@rm -Rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean
+	@echo
+
+# fclean rule
+fclean: clean
+	@echo "$(BLUE)***   Deleting executable file from $(NAME)   ...   ***$(RESET)"
+	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
+	@echo
+
+# re rule
+re: fclean all
+
+# phony
+.PHONY: all clean fclean re
