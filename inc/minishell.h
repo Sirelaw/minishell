@@ -10,6 +10,7 @@
 
 # include <signal_handling.h>
 # include <lexer.h>
+# include <pipex.h>
 
 typedef struct s_shell_env
 {

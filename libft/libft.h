@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:02:02 by sachmull          #+#    #+#             */
-/*   Updated: 2021/07/09 18:17:49 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:44:06 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char	*big, const char *little, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+// Lexicographically compare two strings s1 and s2.
+// Atleast one of them must be null-terminated else behaviour is undefined.
+int		ft_strcmp(const char *string1, const char *string2);
 char	*ft_strdup(const char *s);
 int		ft_atoi(const char *nptr);
 
