@@ -23,5 +23,6 @@ var is passed as the string "$VAR" into the function along with the envp
 pointer.
 */
 char	*env_expand(char **envp, char *var);
+int		pipex(char **cmd_chain, char **envp);
 
 #endif

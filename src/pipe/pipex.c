@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 22:25:05 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/01 10:44:59 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:21:40 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	struct_init(int argc, char **argv, char **envp, t_input *input)
 
 static int	check_for_files(char **argv, t_input *input)
 {
+
 	(input->fd)[0][0] = open(input->infile, O_RDONLY);
 	if ((((input->fd)[0][0]) < 0) && (!ft_strcmp(argv[1], "here_doc")))
 	{
@@ -97,21 +98,33 @@ int	do_init(int argc, char **argv, char **envp, t_input *input)
 	return (0);
 }
 
-int	pipex(int argc, char **argv, char **envp)
+int	pipex(char **cmd_chain, char **envp)
 {
 	t_input	input;
 
 	errno = 0;
+	int i = 0;
+	while (cmd_chain[i++])
+		printf("%s\n", cmd_chain[i - 1]);
+	char	*argv[6];
+	int		argc;
+	argc = 6;
+	argv[0] = "./pipex";
+	argv[1] = "src/pipe/pipex.c";
+	argv[2] = "cat";
+	argv[3] = "grep return";
+	argv[4] = "wc";
+	argv[5] = "outfile";
 	if (check_input(argc, argv, envp, &input))
 		exit (EXIT_FAILURE);
-	if (!ft_strcmp(argv[1], "here_doc"))
-		exit (EXIT_SUCCESS);
-	if (do_init(argc, argv, envp, &input))
-		exit (EXIT_FAILURE);
-	if (check_cmds(&input))
-		exit (EXIT_FAILURE);
-	if (exec_cmds(&input))
-		exit (EXIT_FAILURE);
-	ft_free(&input);
-	exit (EXIT_SUCCESS);
+	// if (!ft_strcmp(argv[1], "here_doc"))
+	// 	exit (EXIT_SUCCESS);
+	// if (do_init(argc, argv, envp, &input))
+	// 	exit (EXIT_FAILURE);
+	// if (check_cmds(&input))
+	// 	exit (EXIT_FAILURE);
+	// if (exec_cmds(&input))
+	// 	exit (EXIT_FAILURE);
+	// ft_free(&input);
+	return (0);
 }
