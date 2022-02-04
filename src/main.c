@@ -3,48 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/04 19:10:19 by sachmull         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/04 19:23:58 by oipadeol         ###   ########.fr       */
+>>>>>>> 751969e51894d91fd067d917a226f52876e46686
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <minishell.h>
 
-char	**create_cmd_chain(char **cmd_chain, char *literal)
-{
-	char	**temp;
-	int		i;
-
-	if (cmd_chain == NULL)
-	{
-		temp = malloc(2 * sizeof(char *));
-		temp[0] = literal;
-		temp[1] = NULL;
-		return (temp);
-	}
-	i = 0;
-	while (cmd_chain[i])
-		i++;
-	temp = malloc((i + 2) * sizeof(char *));
-	i = 0;
-	while (cmd_chain[i++])
-		temp[i - 1] = cmd_chain[i - 1];
-	temp[i - 1] = literal;
-	temp[i] = NULL;
-	free(cmd_chain);
-	return (temp);
-}
-
 int	loop(t_shell_env *shell_env)
 {
 	char	*line;
-	char	**cmd_chain;
+	t_lexer	j;
 
 	(void)shell_env;
-	cmd_chain = NULL;
 	while (1)
 	{
 		line = readline("> ");
@@ -52,19 +30,23 @@ int	loop(t_shell_env *shell_env)
 			;
 		if (ft_strlen(line) > 0)
 			add_history(line);
-		// FOR TESTING ->
 		if (lex_valid_syntax(line))
 		{
-			t_lexer	l = lex_new(line);
-			for (t_token t = lex_next_token(&l); t.type != END; t = lex_next_token(&l))
-			{
-				//cmd_chain = create_cmd_chain(cmd_chain, t.literal);
-				 printf("%s	%d\n", t.literal, t.type);
-				// free(t.literal);
-			}
-			pipex(cmd_chain, shell_env->envp);
-			//free all t.literal after
+			j = lex_new(line);
+			pipex(&j, shell_env->envp);
 		}
+		// FOR TESTING ->
+		// if (lex_valid_syntax(line))
+		// {
+		// 	t_lexer	l = lex_new(line);
+		// 	for (t_token t = lex_next_token(&l); t.type != END; t = lex_next_token(&l))
+		// 	{
+		// 		printf("%s	%d\n", t.literal, t.type);
+		// 		free(t.literal);
+		// 	}
+		// }
+		// else
+		// 	printf("Invalid syntax\n");
 		// <- FOR TESTING
 		free(line);
 	}
