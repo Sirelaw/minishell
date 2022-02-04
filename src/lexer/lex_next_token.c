@@ -58,7 +58,7 @@ t_token	lex_next_token(t_lexer *l)
 	else if (!ft_strchr("&|", l->ch))
 		tok = lex_new_token(WORD, lex_read_word(l));
 	else
-		return (lex_new_token(END, ft_strdup("")));
+		return (lex_new_token(END, ft_strdup("\n")));
 	lex_read_char(l);
 	return (tok);
 }

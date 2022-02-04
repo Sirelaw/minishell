@@ -8,8 +8,10 @@ int	cd(char **argv, char **envp)
 	if (argv[1] == NULL && *home != '\0')
 	{
 		if (chdir(home) != 0)
+		{
 			perror("cd");
 			return (1);
+		}
 	}
 	else if (argv[2] != NULL)
 		return (1);
