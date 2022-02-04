@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:22:20 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:10:19 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	loop(t_shell_env *shell_env)
 			t_lexer	l = lex_new(line);
 			for (t_token t = lex_next_token(&l); t.type != END; t = lex_next_token(&l))
 			{
-				cmd_chain = create_cmd_chain(cmd_chain, t.literal);
-				// printf("%s\n", t.literal);
+				//cmd_chain = create_cmd_chain(cmd_chain, t.literal);
+				 printf("%s	%d\n", t.literal, t.type);
 				// free(t.literal);
 			}
 			pipex(cmd_chain, shell_env->envp);
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 
 	shell_env.envp = envp;
 	shell_env.last_exit_code = 0;
-	// handle_signals(); ////////////commented out for testing
+	handle_signals(); ////////////commented out for testing
 	(void)argc;
 	(void)argv;
 	loop(&shell_env);
