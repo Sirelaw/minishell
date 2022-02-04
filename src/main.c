@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:17:20 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:22:20 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	loop(t_shell_env *shell_env)
 			pipex(cmd_chain, shell_env->envp);
 			//free all t.literal after
 		}
-		else
-			printf("Invalid syntax\n");
 		// <- FOR TESTING
 		free(line);
 	}
