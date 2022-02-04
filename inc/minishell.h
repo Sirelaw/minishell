@@ -25,4 +25,10 @@ pointer.
 char	*env_expand(char **envp, char *var);
 int		pipex(char **cmd_chain, char **envp);
 
+/*
+ *	Expands all environment variables in *str
+ *	given they are not enclosed in single quotes
+*/
+void	expand_str(char **envp, char **str);
+
 #endif
