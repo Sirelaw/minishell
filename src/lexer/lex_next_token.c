@@ -39,7 +39,7 @@ t_token	lex_next_token(t_lexer *l)
 	{
 		if (lex_peek_char(l) == '<')
 		{
-			tok = lex_new_token(READ_IN, ft_strdup("<<"));
+			tok = lex_new_token(APPEND_IN, ft_strdup("<<"));
 			lex_read_char(l);
 		}
 		else
@@ -49,7 +49,7 @@ t_token	lex_next_token(t_lexer *l)
 	{
 		if (lex_peek_char(l) == '>')
 		{
-			tok = lex_new_token(APPEND, ft_strdup(">>"));
+			tok = lex_new_token(APPEND_OUT, ft_strdup(">>"));
 			lex_read_char(l);
 		}
 		else

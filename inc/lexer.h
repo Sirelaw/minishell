@@ -8,8 +8,8 @@
 typedef enum e_type {	PIPE,
 						RE_IN,
 						RE_OUT,
-						APPEND,
-						READ_IN,
+						APPEND_OUT,
+						APPEND_IN,
 						WORD,
 						END} t_type;
 
