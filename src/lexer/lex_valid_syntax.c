@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lex_valid_syntax.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/04 16:14:55 by sachmull          #+#    #+#             */
+/*   Updated: 2022/02/04 16:21:36 by sachmull         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lexer.h>
 
 int	lex_valid_syntax(char *input)
@@ -11,8 +23,10 @@ int	lex_valid_syntax(char *input)
 	peek = lex_next_token(&l);
 	while (tok.type != END)
 	{
-		if (tok.type != WORD && tok.type != PIPE && peek.type != WORD)
+		if ((tok.type != WORD && tok.type != PIPE && peek.type != WORD) \
+			|| (tok.type == PIPE && (peek.type == PIPE || peek.type == END)))
 		{
+			printf("minishell: parse error near \'%s\'\n", peek.literal);
 			free(tok.literal);
 			free(peek.literal);
 			return (0);

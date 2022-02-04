@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
+/*   Updated: 2022/02/04 16:17:38 by sachmull         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -24,5 +36,11 @@ pointer.
 */
 char	*env_expand(char **envp, char *var);
 int		pipex(t_lexer *l, char **envp);
+
+/*
+ *	Expands all environment variables in *str
+ *	given they are not enclosed in single quotes
+*/
+void	expand_str(char **envp, char **str);
 
 #endif
