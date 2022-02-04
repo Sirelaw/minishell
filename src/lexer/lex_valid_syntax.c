@@ -13,6 +13,7 @@ int	lex_valid_syntax(char *input)
 	{
 		if (tok.type != WORD && tok.type != PIPE && peek.type != WORD)
 		{
+			printf("minishell: parse error near \'%s\'\n", peek.literal);
 			free(tok.literal);
 			free(peek.literal);
 			return (0);
