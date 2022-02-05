@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/05 15:31:26 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:33:39 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	loop(t_shell_env *shell_env)
 			j = lex_new(line);
 			pipex(&j, shell_env->envp);
 		}
-		printf("%s\n", "I'm here now\n");
-		
 		// FOR TESTING ->
 		// if (lex_valid_syntax(line))
 		// {
