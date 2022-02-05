@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/05 12:46:42 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:13:24 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_cmd
 	char			**cmds;
 	char			*cmdpath;
 	char			**delimiter;
+	int				fd_in;
+	int				fd_out;
 	int				re_in;
 	int				re_out;
 	int				append_out;

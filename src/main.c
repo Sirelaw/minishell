@@ -6,7 +6,11 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/05 15:33:39 by sachmull         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/05 15:08:33 by oipadeol         ###   ########.fr       */
+>>>>>>> c1a3ed2ab69b2c0835a9d9f13ecfbe8bd8732967
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +35,7 @@ int	loop(t_shell_env *shell_env)
 			j = lex_new(line);
 			pipex(&j, shell_env->envp);
 		}
+		
 		// FOR TESTING ->
 		// if (lex_valid_syntax(line))
 		// {
