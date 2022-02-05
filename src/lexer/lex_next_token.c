@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:15:08 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:23:17 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:10:42 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*lex_read_word(t_lexer *l)
 		else if (l->ch == '\'' && !quote)
 			quote = '\'';
 		if (ft_strchr("<>|& \f\n\r\t\v", lex_peek_char(l)) && !quote)
-			break;
+			break ;
 		lex_read_char(l);
 	}
 	return (ft_substr(l->input, start, l->pos + 1 - start));

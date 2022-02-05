@@ -6,13 +6,13 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:09 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:17:09 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:12:37 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <built_in.h>
 
-int	pwd()
+int	pwd(void)
 {
 	printf("%s\n", getcwd(NULL, 0));
 	return (0);
