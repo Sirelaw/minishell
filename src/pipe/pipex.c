@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/05 14:56:27 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/05 15:31:34 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,10 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 
 	k = (i % 2) + 1;
 	j = 3 - k;
-	// if (i == 0)
-	// 	dup2(input->fd[0][0], STDIN_FILENO);
-	// else
-	// 	dup2(input->fd[j][0], STDIN_FILENO);
-	// if (i == 20) /// input->cmd_count - 1
-	// 	dup2(input->fd[0][1], STDOUT_FILENO);
-	// else
-	// 	dup2(input->fd[k][1], STDOUT_FILENO);
+	// dup2(cmd->fd_in, STDIN_FILENO);
+	// dup2(cmd->fd_out, STDOUT_FILENO);
+	// close(cmd->fd_in);
+	// close(cmd->fd_out);
 	close_all_fds(input->fd);
 	execve(cmd->cmdpath, cmd->cmds, input->envp);
 	perror(cmd->cmds[0]);
@@ -73,9 +69,9 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 	{
 		check_cmd(input, cmds);
 		k = (i % 2) + 1;
-		close(input->fd[k][0]);
-		close(input->fd[k][1]);
-		pipe(input->fd[k]);
+		// close(input->fd[k][0]);
+		// close(input->fd[k][1]);
+		// pipe(input->fd[k]);
 		pid = fork();
 		if (pid == -1)
 			return (-1);
@@ -84,7 +80,7 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 		i++;
 		cmds = cmds->next;
 	}
-	close_all_fds(input->fd);
+	// close_all_fds(input->fd);
 	while (i--)
 		wait(NULL);
 	return (0);
