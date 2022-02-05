@@ -6,52 +6,22 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/04 19:04:54 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/05 14:56:27 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	**create_cmd_chain(char **cmd_chain, char *literal)
+static void	close_all_fds(int fd[3][2])
 {
-	char	**temp;
-	int		i;
+	int	i;
 
-	if (cmd_chain == NULL)
+	i = 0;
+	while (i++ < 3)
 	{
-		temp = malloc(2 * sizeof(char *));
-		temp[0] = literal;
-		temp[1] = NULL;
-		return (temp);
+		close(fd[i - 1][0]);
+		close(fd[i - 1][1]);
 	}
-	i = 0;
-	while (cmd_chain[i])
-		i++;
-	temp = malloc((i + 2) * sizeof(char *));
-	i = 0;
-	while (cmd_chain[i++])
-		temp[i - 1] = cmd_chain[i - 1];
-	temp[i - 1] = literal;
-	temp[i] = NULL;
-	free(cmd_chain);
-	return (temp);
-}
-
-int	count_pipes(char **cmd_chain)
-{
-	int i;
-	int	j;
-	int	count;
-
-	count = 0;
-	i = 0;
-	j = 0;
-	while (cmd_chain[i++])
-	{
-		if (cmd_chain[i - 1][0] == '|')
-			count++;
-	}
-	return (count);
 }
 
 int	do_init(char **envp, t_input *input)
@@ -67,42 +37,41 @@ int	do_init(char **envp, t_input *input)
 	if ((input->path) == NULL)
 		return (1);
 	input->envp = envp;
-	input->cmd_attr = NULL;
+	input->cmd_chain = NULL;
 	return (0);
 }
 
-static void	do_exec(t_input *input, t_cmd *p, int i)
+static void	do_exec(t_input *input, t_cmd *cmd, int i)
 {
 	int	j;
 	int	k;
 
 	k = (i % 2) + 1;
 	j = 3 - k;
-	if (i == 0)
-		dup2(input->fd[0][0], STDIN_FILENO);
-	else
-		dup2(input->fd[j][0], STDIN_FILENO);
-	if (i == 7) /// input->cmd_count - 1
-		dup2(input->fd[0][1], STDOUT_FILENO);
-	else
-		dup2(input->fd[k][1], STDOUT_FILENO);
-	// close_all_fds(input->fd);
-	// execve(p->content, &(((input->mcmds)[i])[0]), input->envp);
-	// perror(((input->mcmds)[i])[0]);
+	// if (i == 0)
+	// 	dup2(input->fd[0][0], STDIN_FILENO);
+	// else
+	// 	dup2(input->fd[j][0], STDIN_FILENO);
+	// if (i == 20) /// input->cmd_count - 1
+	// 	dup2(input->fd[0][1], STDOUT_FILENO);
+	// else
+	// 	dup2(input->fd[k][1], STDOUT_FILENO);
+	close_all_fds(input->fd);
+	execve(cmd->cmdpath, cmd->cmds, input->envp);
+	perror(cmd->cmds[0]);
 	exit(EXIT_FAILURE);
 }
 
-int	exec_cmds(t_input *input)
+int	exec_cmds(t_input *input, t_cmd *cmds)
 {
 	int		i;
 	pid_t	pid;
-	t_cmd	*p;
 	int		k;
 
 	i = 0;
-	p = input->cmd_attr;
-	while (1)
+	while (cmds)
 	{
+		check_cmd(input, cmds);
 		k = (i % 2) + 1;
 		close(input->fd[k][0]);
 		close(input->fd[k][1]);
@@ -111,51 +80,14 @@ int	exec_cmds(t_input *input)
 		if (pid == -1)
 			return (-1);
 		if (pid == 0)
-			do_exec(input, p, i);
+			do_exec(input, cmds, i);
 		i++;
-		p = p->next;
+		cmds = cmds->next;
 	}
-	// close_all_fds(input->fd);
+	close_all_fds(input->fd);
 	while (i--)
 		wait(NULL);
 	return (0);
-}
-
-t_cmd	*new_t_cmd(void)
-{
-	t_cmd	*cmd_attr;
-
-	cmd_attr = malloc(sizeof(t_cmd));
-	if (cmd_attr == NULL)
-		return (NULL);
-	cmd_attr->infile = NULL;
-	cmd_attr->outfile = NULL;
-	cmd_attr->cmd = NULL;
-	cmd_attr->mcmds = NULL;
-	cmd_attr->cmdpath = NULL;
-	cmd_attr->delimiter = NULL;
-	cmd_attr->re_in = FALSE;
-	cmd_attr->re_out = FALSE;
-	cmd_attr->append_out = FALSE;
-	cmd_attr->append_in = FALSE;
-	cmd_attr->next = NULL;
-	
-	return (cmd_attr);
-}
-
-void	t_cmd_add_back(t_cmd **head, t_cmd *latest)
-{
-	t_cmd *temp;
-
-	temp = *head;
-	if (temp == NULL)
-		*head = latest;
-	else
-	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next = latest;
-	}
 }
 
 void	add_to_array(char ***arr, char *s)
@@ -214,10 +146,10 @@ void	build_cmd(t_cmd *cmd, t_token *tok)
 		cmd->append_out = FALSE;
 	}
 	else if (tok->type == WORD)
-		add_to_array(&cmd->mcmds, tok->literal);
+		add_to_array(&cmd->cmds, tok->literal);
 }
 
-int	execute(t_lexer *l, t_input *input)
+t_cmd	*build_chain(t_lexer *l, t_input *input)
 {
 	t_cmd	*first_cmd;
 	t_cmd	*latest_cmd;
@@ -229,13 +161,13 @@ int	execute(t_lexer *l, t_input *input)
 	tok = lex_next_token(l);
 	while (tok.type != END)
 	{
+		build_cmd(latest_cmd, &tok);
 		peek_tok = lex_next_token(l);
-		printf("%s	%d\n", tok.literal, tok.type);
-		if (peek_tok.type != END && peek_tok.type != PIPE)
-			build_cmd(latest_cmd, &tok);
-		else
+		// printf("%s	%d\n", tok.literal, tok.type);//---------------------------
+		if (peek_tok.type == END || peek_tok.type == PIPE)
 		{
-			build_cmd(latest_cmd, &tok);
+			if (peek_tok.type == END)
+				return (first_cmd);
 			latest_cmd = new_t_cmd();
 			t_cmd_add_back(&first_cmd, latest_cmd);
 			while (peek_tok.type == PIPE)
@@ -243,10 +175,7 @@ int	execute(t_lexer *l, t_input *input)
 		}
 		tok = peek_tok;
 	}
-	int i = 0;
-	while (first_cmd->outfile[i])
-		printf("%s\n", first_cmd->outfile[i++]);
-	return (0);
+	return (first_cmd);
 }
 
 int	pipex(t_lexer *l, char **envp)
@@ -259,6 +188,13 @@ int	pipex(t_lexer *l, char **envp)
 	input = malloc(sizeof(t_input));
 	if (do_init(envp, input))
 		exit (EXIT_FAILURE);
-	execute(l, input);
+	input->cmd_chain = build_chain(l, input);
+	if (input->cmd_chain)
+		exec_cmds(input, input->cmd_chain);
+	// Testing block
+	// if (input->cmd_chain->outfile)
+	// 	while (input->cmd_chain->outfile[i])
+	// 		printf("%s\n", input->cmd_chain->outfile[i++]);
+	//--------------
 	return (0);
 }
