@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:25 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 19:57:50 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:47:39 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	handle_signals()
 	struct termios	terminal;
 
 	tcgetattr(2, &terminal);
-	terminal.c_lflag = terminal.c_lflag ^ ECHOCTL;
+	if (terminal.c_lflag & ECHOCTL)
+		terminal.c_lflag = terminal.c_lflag ^ ECHOCTL;
 	tcsetattr(2, TCSANOW, &terminal);
 	signal(SIGINT, handle_signal_int);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGSEGV, exit);
 }
