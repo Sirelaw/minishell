@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:25 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/05 13:37:25 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 13:47:39 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	handle_signals()
 	tcsetattr(2, TCSANOW, &terminal);
 	signal(SIGINT, handle_signal_int);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGSEGV, exit);
 }
