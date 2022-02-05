@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:16:46 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:09:31 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,24 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 	strncpy(result, src, start);
 	strncpy(result + start, new, strlen(new));
 	strncpy(result + start + strlen(new), src + end, strlen(src) - end);
+	free(src);
 	return (result);
+}
+
+static void	expand_var(char **envp, char **str, size_t idx)
+{
+	size_t	space;
+	char	*var;
+	char	value;
+
+	space = idx;
+	while (!isspace((*str)[space]) && (*str)[space])
+		++space;
+	value = (*str)[space];
+	(*str)[space] = 0;
+	var = env_expand(envp, &(*str)[idx]);
+	(*str)[space] = value;
+	*str = str_replace(*str, idx, space, var);
 }
 
 /*
@@ -51,17 +68,7 @@ void	expand_str(char **envp, char **str)
 		else if ((*str)[idx] == '\'' && !quote)
 			quote = '\'';
 		else if ((*str)[idx] == '$' && quote != '\'')
-		{
-			space = idx;
-			while (!isspace((*str)[space]) && (*str)[space])
-				++space;
-			(*str)[space] = 0;
-			var = env_expand(envp, &(*str)[idx]);
-			(*str)[space] = ' ';
-			var = str_replace(*str, idx, space, var);
-			free(*str);
-			*str = var;
-		}
+			expand_var(envp, str, idx);
 		++idx;
 	}
 }

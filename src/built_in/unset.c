@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:12 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:17:12 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:13:01 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	unset(char **argv, char ***envp)
 		y = 0;
 		while ((*envp) && (*envp)[y])
 		{
-			if (ft_strncmp(argv[x], (*envp)[y], ft_strchr((*envp)[y], '=') - (*envp)[y]) == 0)
+			if (ft_strncmp(argv[x], (*envp)[y], \
+				ft_strchr((*envp)[y], '=') - (*envp)[y]) == 0)
 				if (env_remove(envp, (*envp)[y]))
 					return (1);
 			++y;

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:05 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:17:05 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:12:24 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ int	export(char **argv, char ***envp)
 	x = 0;
 	while (argv[x])
 	{
-			y = 0;
-			while (ft_strchr(argv[x], '=') && (*envp) && (*envp)[y])
+		y = 0;
+		while (ft_strchr(argv[x], '=') && (*envp) && (*envp)[y])
+		{
+			if (ft_strncmp(argv[x], (*envp)[y], ft_strchr((*envp)[y], '=') \
+				- (*envp)[y]) == 0)
 			{
-				if (ft_strncmp(argv[x], (*envp)[y], ft_strchr((*envp)[y], '=') \
-					- (*envp)[y]) == 0)
-				{
-					free((*envp)[y]);
-					(*envp)[y] = argv[x];
-					break ;
-				}
-				++y;
+				free((*envp)[y]);
+				(*envp)[y] = argv[x];
+				break ;
 			}
-			if (ft_strchr(argv[x], '=') && ((*envp) == NULL || (*envp)[y] == NULL))
-				if (env_add(envp, argv[x]))
-					return (1);
+			++y;
+		}
+		if (ft_strchr(argv[x], '=') && ((*envp) == NULL || (*envp)[y] == NULL))
+			if (env_add(envp, argv[x]))
+				return (1);
 		++x;
 	}
 	return (0);

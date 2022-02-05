@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:25 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/05 13:47:39 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:00:32 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	handle_signal_int(int sig)
 	}
 }
 
-void	handle_signals()
+void	handle_signals(void)
 {
 	struct termios	terminal;
 

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:57 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/04 16:16:57 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:11:54 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	echo(char **argv)
 		++idx;
 	}
 	if (ft_strncmp("-n", argv[1], 3) != 0)
-			printf("\n");
+		printf("\n");
 	return (0);
 }
