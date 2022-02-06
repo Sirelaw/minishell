@@ -6,22 +6,16 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/05 15:31:34 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/05 21:39:55 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	close_all_fds(int fd[3][2])
+static void	close_fds(int fd[2])
 {
-	int	i;
-
-	i = 0;
-	while (i++ < 3)
-	{
-		close(fd[i - 1][0]);
-		close(fd[i - 1][1]);
-	}
+	close(fd[0]);
+	close(fd[1]);
 }
 
 int	do_init(char **envp, t_input *input)
@@ -46,13 +40,24 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 	int	j;
 	int	k;
 
-	k = (i % 2) + 1;
-	j = 3 - k;
-	// dup2(cmd->fd_in, STDIN_FILENO);
-	// dup2(cmd->fd_out, STDOUT_FILENO);
-	// close(cmd->fd_in);
-	// close(cmd->fd_out);
-	close_all_fds(input->fd);
+	k = i % 2;
+	j = !k;
+	if (i > 0)
+		dup2(input->fd[j][0], STDIN_FILENO);
+	if (cmd->next)
+		dup2(input->fd[k][1], STDOUT_FILENO);
+	// if ((cmd->fd[0] == -1) && (i > 0))
+	// 	dup2(input->fd[j][0], STDIN_FILENO);
+	// else if (cmd->fd[0] != -1)
+	// 	dup2(cmd->fd[0], STDIN_FILENO);
+	// if ((cmd->fd[1] == -1) && cmd->next)
+	// 	dup2(input->fd[k][1], STDOUT_FILENO);
+	// else if (cmd->fd[1] != -1)
+	// 	dup2(cmd->fd[1], STDOUT_FILENO);
+	// close_fds(cmd->fd);
+	close_fds(input->fd[k]);
+	close_fds(input->fd[j]);
+	// close_fds(input->fd[1]);
 	execve(cmd->cmdpath, cmd->cmds, input->envp);
 	perror(cmd->cmds[0]);
 	exit(EXIT_FAILURE);
@@ -68,10 +73,10 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 	while (cmds)
 	{
 		check_cmd(input, cmds);
-		k = (i % 2) + 1;
-		// close(input->fd[k][0]);
-		// close(input->fd[k][1]);
-		// pipe(input->fd[k]);
+		k = i % 2;
+		if (i > 0)
+			close_fds(input->fd[k]);
+		pipe(input->fd[k]);
 		pid = fork();
 		if (pid == -1)
 			return (-1);
@@ -80,7 +85,7 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 		i++;
 		cmds = cmds->next;
 	}
-	// close_all_fds(input->fd);
+	close_fds(input->fd[k]);
 	while (i--)
 		wait(NULL);
 	return (0);
@@ -159,7 +164,6 @@ t_cmd	*build_chain(t_lexer *l, t_input *input)
 	{
 		build_cmd(latest_cmd, &tok);
 		peek_tok = lex_next_token(l);
-		// printf("%s	%d\n", tok.literal, tok.type);//---------------------------
 		if (peek_tok.type == END || peek_tok.type == PIPE)
 		{
 			if (peek_tok.type == END)
@@ -185,12 +189,13 @@ int	pipex(t_lexer *l, char **envp)
 	if (do_init(envp, input))
 		exit (EXIT_FAILURE);
 	input->cmd_chain = build_chain(l, input);
-	if (input->cmd_chain)
+	if (input->cmd_chain->cmds)
 		exec_cmds(input, input->cmd_chain);
 	// Testing block
 	// if (input->cmd_chain->outfile)
 	// 	while (input->cmd_chain->outfile[i])
 	// 		printf("%s\n", input->cmd_chain->outfile[i++]);
 	//--------------
+	// free_all_allocs()
 	return (0);
 }
