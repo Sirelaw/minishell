@@ -28,14 +28,8 @@ int	loop(t_shell_env *shell_env)
 			add_history(line);
 		if (lex_valid_syntax(line))
 		{
-			// j = lex_new(line);
-			// pipex(&j, shell_env->envp);
 			j = lex_new(line);
-			for (t_token t = lex_next_token(&j); t.type != END; t = lex_next_token(&j))
-			{
-				wildcard(&t.literal);
-				printf("%s\n", t.literal);
-			}
+			pipex(&j, shell_env->envp);
 		}
 		
 		// FOR TESTING ->
