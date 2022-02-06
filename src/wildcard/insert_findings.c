@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_str.c                                       :+:      :+:    :+:   */
+/*   insert_findings.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/06 23:01:09 by sachmull         ###   ########.fr       */
+/*   Created: 2022/02/06 20:40:44 by sachmull          #+#    #+#             */
+/*   Updated: 2022/02/06 23:04:32 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <wildcard.h>
 
 /*
  *	Replaces the characters from start(included) to end(excluded) in src
@@ -30,45 +30,36 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 	return (result);
 }
 
-static void	expand_var(char **envp, char **str, size_t idx)
+char	*combine_findings(t_list *findings)
 {
-	size_t	space;
-	char	*var;
-	char	value;
+	char	*combination;
+	char	*tmp;
 
-	space = idx;
-	while (!isspace((*str)[space]) && (*str)[space])
-		++space;
-	value = (*str)[space];
-	(*str)[space] = 0;
-	var = env_expand(envp, &(*str)[idx]);
-	(*str)[space] = value;
-	*str = str_replace(*str, idx, space, var);
+	combination = ft_calloc(1, 1);
+	while (findings)
+	{
+		tmp = ft_strjoin(combination, findings->content);
+		free(combination);
+		combination = tmp;
+		if (findings->next)
+		{
+			tmp = ft_strjoin(combination, " ");
+			free(combination);
+			combination = tmp;
+		}
+		findings = findings->next;
+	}
+	return (combination);
 }
 
-/*
- *	Expands all environment variables in *str
- *	given they are not enclosed in single quotes
-*/
-void	expand_str(char **envp, char **str)
+void	insert_findings(char **str, t_list *findings)
 {
-	size_t	idx;
-	char	quote;
+	char	*to_insert;
 	size_t	space;
-	char	*var;
 
-	idx = 0;
-	quote = 0;
-	while ((*str)[idx])
-	{
-		if ((*str)[idx] == quote)
-			quote = 0;
-		else if ((*str)[idx] == '"' && !quote)
-			quote = '"';
-		else if ((*str)[idx] == '\'' && !quote)
-			quote = '\'';
-		else if ((*str)[idx] == '$' && quote != '\'')
-			expand_var(envp, str, idx);
-		++idx;
-	}
+	to_insert = combine_findings(findings);
+	while (!ft_isspace(*str[space]))
+		++space;
+	*str = str_replace(*str, 0, space, to_insert);
+	free(to_insert);
 }

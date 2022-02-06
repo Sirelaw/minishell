@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/05 17:58:41 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/06 22:54:46 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_cmd
 {
 	char			**infile;
 	char			**outfile;
+	char			**outfile_type;
 	char			**cmds;
 	char			*cmdpath;
 	char			**delimiter;
@@ -52,7 +53,6 @@ int		check_cmd(t_input *input, t_cmd *cmd_attr);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 void	add_to_array(char ***arr, char *s);
-void	build_cmd(t_cmd *cmd, t_token *tok);
 t_cmd	*build_chain(t_lexer *l, t_input *input);
 
 #endif
