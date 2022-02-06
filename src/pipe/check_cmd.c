@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 16:04:05 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/06 23:49:04 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,20 @@ int	check_cmd(t_input *input, t_cmd *cmd_attr)
 
 	ret = 0;
 	s = NULL;
-	if (!(access((cmd_attr->cmds)[0], X_OK)))
+	if (ft_strnstr((cmd_attr->cmds)[0], "/", ft_strlen((cmd_attr->cmds)[0])))
 	{
-		cmd_attr->cmdpath = ft_strdup((cmd_attr->cmds)[0]);
-		return (0);
+		if (!(access((cmd_attr->cmds)[0], X_OK)))
+		{
+			cmd_attr->cmdpath = ft_strdup((cmd_attr->cmds)[0]);
+			return (0);
+		}
 	}
-	if (!check_path_cmd(input->path, (cmd_attr->cmds)[0], s, cmd_attr))
-		return (0);
+	else
+	{
+		if (!check_path_cmd(input->path, (cmd_attr->cmds)[0], s, cmd_attr))
+			return (0);
+	}
 	ft_putstr_fd((cmd_attr->cmds)[0], STDERR_FILENO);
-	ft_putstr_fd(": command not found", STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (1);
 }

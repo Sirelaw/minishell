@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 22:58:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/06 23:48:02 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 	k = i % 2;
 	j = !k;
 	open_infile_outfile(cmd);
+	if (!cmd->cmdpath)
+		exit(EXIT_FAILURE);
 	if (cmd->infile)
 		dup2(cmd->fd[0], STDIN_FILENO);
 	else if (i > 0)
