@@ -23,7 +23,6 @@
 # include <signal_handling.h>
 # include <lexer.h>
 # include <pipex.h>
-# include <wildcard.h>
 
 typedef struct s_shell_env
 {
