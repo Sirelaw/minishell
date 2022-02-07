@@ -49,7 +49,6 @@ obj:
 	@mkdir -p $(OBJ_DIR)env_expand
 	@mkdir -p $(OBJ_DIR)built_in
 	@mkdir -p $(OBJ_DIR)pipe
-	@mkdir -p $(OBJ_DIR)wildcard
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@gcc $(FLAGS) $(CPFLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
