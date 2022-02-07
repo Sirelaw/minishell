@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 23:49:04 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:30:44 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ int	check_cmd(t_input *input, t_cmd *cmd_attr)
 			return (0);
 		}
 	}
-	else
-	{
-		if (!check_path_cmd(input->path, (cmd_attr->cmds)[0], s, cmd_attr))
+	else if (!check_path_cmd(input->path, (cmd_attr->cmds)[0], s, cmd_attr))
 			return (0);
-	}
 	ft_putstr_fd((cmd_attr->cmds)[0], STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (1);

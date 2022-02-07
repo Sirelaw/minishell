@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 23:48:02 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:34:34 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	do_init(char **envp, t_input *input)
 	input->path = ft_split(&(envp[i][5]), ':');
 	if ((input->path) == NULL)
 		return (1);
+	input->here_doc_id = 0;
 	input->envp = envp;
 	input->cmd_chain = NULL;
 	return (0);
