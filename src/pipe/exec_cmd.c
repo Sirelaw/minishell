@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/07 17:34:34 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/07 23:51:12 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 	k = i % 2;
 	j = !k;
 	open_infile_outfile(cmd);
-	if (!cmd->cmdpath)
-		exit(EXIT_FAILURE);
+	if (check_cmd(input, cmd))
+		return ;
 	if (cmd->infile)
 		dup2(cmd->fd[0], STDIN_FILENO);
 	else if (i > 0)
@@ -102,7 +102,6 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 	while (cmds)
 	{
 		k = i % 2;
-		check_cmd(input, cmds);
 		close_fds(input->fd[k]);
 		pipe(input->fd[k]);
 		pid = fork();
