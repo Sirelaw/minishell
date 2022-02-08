@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/08 18:38:13 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/08 23:28:30 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ typedef struct s_input
 
 int		do_init(char **envp, t_input *input);
 int		exec_cmds(t_input *input, t_cmd *cmds);
-int		check_cmd(t_input *input, t_cmd *cmd_attr);
+int		check_cmd(t_input *input, t_cmd *cmd_attr, int i);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 void	add_to_array(char ***arr, char *s);
 int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id);
 t_cmd	*build_chain(t_lexer *l, t_input *input);
+void	close_fds(int fd[2]);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/07 23:51:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/08 23:28:19 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-static void	close_fds(int fd[2])
+void	close_fds(int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
@@ -73,9 +73,6 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 
 	k = i % 2;
 	j = !k;
-	open_infile_outfile(cmd);
-	if (check_cmd(input, cmd))
-		return ;
 	if (cmd->infile)
 		dup2(cmd->fd[0], STDIN_FILENO);
 	else if (i > 0)
@@ -104,12 +101,17 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 		k = i % 2;
 		close_fds(input->fd[k]);
 		pipe(input->fd[k]);
+		open_infile_outfile(cmds);
+		if (check_cmd(input, cmds, i++))
+		{
+			cmds = cmds->next;
+			continue ;
+		}
 		pid = fork();
 		if (pid == -1)
 			return (-1);
 		if (pid == 0)
-			do_exec(input, cmds, i);
-		i++;
+			do_exec(input, cmds, i - 1);
 		cmds = cmds->next;
 	}
 	close_fds(input->fd[0]);
