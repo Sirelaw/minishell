@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/06 22:51:46 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/08 00:36:26 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal_handling.h>
 # include <lexer.h>
 # include <pipex.h>
+# include <built_in.h>
 
 typedef struct s_shell_env
 {

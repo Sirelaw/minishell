@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:38:37 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/01/28 19:28:52 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/08 00:41:34 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*env_expand(char **envp, char *var)
 
 	if ((envp == NULL) || (var == NULL) || (*var == '\0') || (*var != '$'))
 		return ("");
-	if (var[1] == '\0') // the case of $$ needs to be handled specially
+	if (var[1] == '\0')
 		return ("$");
 	var_len = ft_strlen(var) - 1;
 	i = 0;

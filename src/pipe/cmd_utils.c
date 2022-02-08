@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 22:55:29 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/07 23:16:04 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	set_flags(t_cmd *cmd, t_token *tok)
 		cmd->append_out = TRUE;
 }
 
-static void	build_cmd(t_cmd *cmd, t_token *tok)
+static void	build_cmd(t_input *input, t_cmd *cmd, t_token *tok)
 {
 	set_flags(cmd, tok);
 	if ((tok->type == WORD) && (cmd->re_in == TRUE))
@@ -65,7 +65,7 @@ static void	build_cmd(t_cmd *cmd, t_token *tok)
 	}
 	else if ((tok->type == WORD) && (cmd->append_in == TRUE))
 	{
-		add_to_array(&cmd->delimiter, tok->literal);
+		here_doc(cmd, tok->literal, input->here_doc_id++);
 		cmd->append_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->append_out == TRUE))
@@ -90,7 +90,7 @@ t_cmd	*build_chain(t_lexer *l, t_input *input)
 	tok = lex_next_token(l);
 	while (tok.type != END)
 	{
-		build_cmd(latest_cmd, &tok);
+		build_cmd(input, latest_cmd, &tok);
 		peek_tok = lex_next_token(l);
 		if (peek_tok.type == END || peek_tok.type == PIPE)
 		{

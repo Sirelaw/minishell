@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/07 15:03:19 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:02:28 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	loop(t_shell_env *shell_env)
 		if (lex_valid_syntax(line))
 		{
 			j = lex_new(line);
-			handle_sig_during_exe();
+			sig_handle_exec();
 			pipex(&j, shell_env->envp);
-			handle_signals();
+			sig_handle_interactive();
 		}
 		
 		// FOR TESTING ->
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 
 	shell_env.envp = envp;
 	shell_env.last_exit_code = 0;
-	handle_signals(); ////////////commented out for testing
+	sig_handle_interactive();
 	(void)argc;
 	(void)argv;
 	loop(&shell_env);
