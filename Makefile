@@ -21,12 +21,14 @@ INC_DIR = ./inc/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = main.c signal_handling/signal_handling.c lexer/lex_new_token.c \
+SRC_FILES = main.c lexer/lex_new_token.c \
 		lexer/lex_new.c lexer/lex_next_token.c lexer/lex_peek_char.c \
 		lexer/lex_read_char.c lexer/lex_valid_syntax.c env_expand/env_expand.c\
 		env_expand/expand_str.c built_in/cd.c built_in/echo.c built_in/env.c built_in/export.c \
 		built_in/pwd.c built_in/unset.c pipe/pipex.c pipe/check_cmd.c\
 		pipe/t_cmd_utils.c pipe/cmd_utils.c pipe/exec_cmd.c pipe/here_doc.c\
+		signal_handling/sig_handle_interactive.c signal_handling/sig_handle_exec.c\
+		signal_handling/sig_handle_doc.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
