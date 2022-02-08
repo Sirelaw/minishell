@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/06 23:01:09 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:25:19 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	expand_var(char **envp, char **str, size_t idx)
  *	Expands all environment variables in *str
  *	given they are not enclosed in single quotes
 */
-void	expand_str(char **envp, char **str)
+char	*expand_str(char **envp, char **str)
 {
 	size_t	idx;
 	char	quote;
@@ -71,4 +71,5 @@ void	expand_str(char **envp, char **str)
 			expand_var(envp, str, idx);
 		++idx;
 	}
+	return (*str);
 }

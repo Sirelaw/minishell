@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/08 18:12:48 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:13:42 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_cmd
 	int				append_in;
 	struct s_cmd	*next;
 }t_cmd;
-
 
 typedef struct s_input
 {
