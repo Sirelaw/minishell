@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 00:36:26 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/08 19:23:42 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 # include <libft.h>
-
 # include <signal_handling.h>
 # include <lexer.h>
 # include <pipex.h>
@@ -42,6 +40,6 @@ int		pipex(t_lexer *l, char **envp);
  *	Expands all environment variables in *str
  *	given they are not enclosed in single quotes
 */
-void	expand_str(char **envp, char **str);
+char	*expand_str(char **envp, char **str);
 
 #endif
