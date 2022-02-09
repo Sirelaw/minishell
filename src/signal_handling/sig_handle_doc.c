@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:23:31 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 19:30:00 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:00:59 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ static void	handle_sigint(int sig)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		//rl_redisplay();
+		// close all fds
+		loop(&shell_env);
 		// $? = 1
 	}
 }
 
 void	sig_handle_doc(void)
 {
-	struct termios	terminal;
-
-	tcgetattr(2, &terminal);
-	if (terminal.c_lflag & ECHOCTL)
-		terminal.c_lflag = terminal.c_lflag ^ ECHOCTL;
-	tcsetattr(2, TCSANOW, &terminal);
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

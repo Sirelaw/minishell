@@ -6,19 +6,22 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/09 12:55:34 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:14:30 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <minishell.h>
 
+t_shell_env	shell_env;
+
 int	loop(t_shell_env *shell_env)
 {
 	char	*line;
 	t_lexer	j;
 
-	(void)shell_env;
+	//(void)shell_env;
+	sig_handle_interactive();
 	while (1)
 	{
 		line = readline("> ");
@@ -33,31 +36,14 @@ int	loop(t_shell_env *shell_env)
 			pipex(&j, shell_env);
 			sig_handle_interactive();
 		}
-		
-		// FOR TESTING ->
-		// if (lex_valid_syntax(line))
-		// {
-		// 	t_lexer	l = lex_new(line);
-		// 	for (t_token t = lex_next_token(&l); t.type != END; t = lex_next_token(&l))
-		// 	{
-		// 		printf("%s	%d\n", t.literal, t.type);
-		// 		free(t.literal);
-		// 	}
-		// }
-		// else
-		// 	printf("Invalid syntax\n");
-		// <- FOR TESTING
 		free(line);
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell_env	shell_env;
-
 	shell_env.envp = envp;
 	shell_env.last_exit_code = 0;
-	sig_handle_interactive();
 	(void)argc;
 	(void)argv;
 	loop(&shell_env);

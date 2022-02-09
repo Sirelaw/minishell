@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:06:27 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 20:02:59 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:25:16 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ static void	handle_sigquit(int sig)
 
 void	sig_handle_exec(void)
 {
-	struct termios	terminal;
-
-	tcgetattr(2, &terminal);
-	if (!(terminal.c_lflag & ECHOCTL))
-		terminal.c_lflag = terminal.c_lflag ^ ECHOCTL;
-	tcsetattr(2, TCSANOW, &terminal);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	signal(SIGSEGV, exit);

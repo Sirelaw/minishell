@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:54:29 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 19:51:49 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:27:36 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	handle_sigsegv(int sig)
 {
 	if (sig == SIGSEGV)
 	{
+		printf("\033[F");
+		printf("> exit\n");
 		exit(1);
 	}
 }
@@ -34,13 +36,16 @@ static void	handle_sigint(int sig)
 
 void	sig_handle_interactive(void)
 {
-	struct termios	terminal;
+	struct termios		terminal;
+	struct sigaction	action;
 
 	tcgetattr(2, &terminal);
 	if (terminal.c_lflag & ECHOCTL)
 		terminal.c_lflag = terminal.c_lflag ^ ECHOCTL;
 	tcsetattr(2, TCSANOW, &terminal);
-	signal(SIGINT, handle_sigint);
+	action.sa_handler = handle_sigint;
+	sigaction(SIGINT, &action, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGSEGV, handle_sigsegv);
+	action.sa_handler = handle_sigsegv;
+	sigaction(SIGSEGV, &action, NULL);
 }
