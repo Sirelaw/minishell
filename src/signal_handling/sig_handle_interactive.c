@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:54:29 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 19:51:49 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:17:32 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	handle_sigsegv(int sig)
 {
 	if (sig == SIGSEGV)
 	{
+		printf("\033[F");
+		printf("> exit\n");
 		exit(1);
 	}
 }
