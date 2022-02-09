@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 20:13:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:20:38 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id, char **envp)
 	char	*temp;
 
 	temp = ft_itoa(here_doc_id);
-	opendir("here_docs");
 	s =  ft_strjoin("./src/here_docs/", temp);
 	free(temp);
 	unlink(s);
 	fd = open(s, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd < 0)
 	{
-		perror("Could not open heredoc");
+		perror("Could not open heredoc. Check for ./here_docs dir");
 		return(1);
 	}
 	read_to_fd(fd, delimiter, envp);

@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 15:20:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 22:31:09 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,19 @@ void	restore_fds(t_input *input, t_cmd *cmd)
 	dup2(cmd->re_out, STDOUT_FILENO);
 }
 
+int	check_built_in(t_cmd *cmd)
+{
+	if (!ft_strcmp(cmd->cmds[0], "cd") || !ft_strcmp(cmd->cmds[0], "echo")
+		|| !ft_strcmp(cmd->cmds[0], "env") || !ft_strcmp(cmd->cmds[0], "export")
+		|| !ft_strcmp(cmd->cmds[0], "pwd")
+		|| !ft_strcmp(cmd->cmds[0], "unset"))
+		return (1);
+	return (0);
+}
+
 int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 {
-	if (!(!ft_strcmp(cmd->cmds[0], "cd") || !ft_strcmp(cmd->cmds[0], "echo")
-		|| !ft_strcmp(cmd->cmds[0], "env") || !ft_strcmp(cmd->cmds[0], "export")
-		|| !ft_strcmp(cmd->cmds[0], "pwd") || !ft_strcmp(cmd->cmds[0], "unset")))
+	if (!check_built_in(cmd))
 		return (0);
 	dup_fds(input, cmd, i);
 	if (!ft_strcmp(cmd->cmds[0], "cd"))
