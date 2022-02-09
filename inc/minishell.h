@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 19:23:42 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 12:52:55 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ var is passed as the string "$VAR" into the function along with the envp
 pointer.
 */
 char	*env_expand(char **envp, char *var);
-int		pipex(t_lexer *l, char **envp);
+int		pipex(t_lexer *l, t_shell_env *shell_env);
 
 /*
  *	Expands all environment variables in *str

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 20:02:28 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/09 12:55:34 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	loop(t_shell_env *shell_env)
 		{
 			j = lex_new(line);
 			sig_handle_exec();
-			pipex(&j, shell_env->envp);
+			pipex(&j, shell_env);
 			sig_handle_interactive();
 		}
 		

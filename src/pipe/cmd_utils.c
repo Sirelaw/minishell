@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/08 18:40:07 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:54:36 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	build_cmd(t_input *input, t_cmd *cmd, t_token *tok)
 	}
 	else if ((tok->type == WORD) && (cmd->append_in == TRUE))
 	{
-		here_doc(cmd, tok->literal, input->here_doc_id++);
+		here_doc(cmd, tok->literal, input->here_doc_id++, input->envp);
 		cmd->append_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->append_out == TRUE))
@@ -86,6 +86,8 @@ t_cmd	*build_chain(t_lexer *l, t_input *input)
 	t_token	peek_tok;
 
 	first_cmd = new_t_cmd();
+	if (!first_cmd)
+		return (NULL);
 	latest_cmd = first_cmd;
 	tok = lex_next_token(l);
 	while (tok.type != END)

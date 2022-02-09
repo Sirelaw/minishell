@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/08 23:28:19 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:28:20 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 	int		i;
 	pid_t	pid;
 	int		k;
+	int		status;
 
 	i = 0;
+	status = 0;
 	while (cmds)
 	{
 		k = i % 2;
@@ -117,6 +119,6 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 	close_fds(input->fd[0]);
 	close_fds(input->fd[1]);
 	while (i--)
-		wait(NULL);
-	return (0);
+		wait(&status);
+	return (status);
 }

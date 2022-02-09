@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:21:50 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/06 17:40:47 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:07:48 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_cmd	*new_t_cmd(void)
 	cmd->outfile_type = NULL;
 	cmd->cmds = NULL;
 	cmd->cmdpath = NULL;
-	cmd->delimiter = NULL;
 	cmd->fd[0] = -1;
 	cmd->fd[1] = -1;
 	cmd->re_in = FALSE;

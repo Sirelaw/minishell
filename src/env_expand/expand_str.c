@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/09 12:16:52 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:53:20 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*expand_str(char **envp, char **str)
 
 	idx = 0;
 	quote = 0;
+	// printf("%s\n", *str);
 	while ((*str)[idx])
 	{
 		if ((*str)[idx] == quote)

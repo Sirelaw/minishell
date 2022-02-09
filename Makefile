@@ -67,6 +67,7 @@ $(NAME): $(OBJ)
 clean:
 	@echo "$(BLUE)***   Deleting all objects from $(NAME)   ...   ***$(RESET)"
 	@rm -Rf $(OBJ_DIR)
+	@rm -f $(SRC_DIR)here_docs/*
 	@make -C $(LIBFT_DIR) clean
 	@echo
 
