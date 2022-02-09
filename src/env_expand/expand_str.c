@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/08 18:25:19 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/09 12:16:52 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 	if (!result)
 		return (NULL);
 	ft_strlcpy(result, src, start);
-	ft_strlcpy(result + start, new, ft_strlen(new));
+	ft_strlcpy(result + start, new, ft_strlen(new) + 1);
 	ft_strlcpy(result + start + ft_strlen(new), src + end, ft_strlen(src) - end);
 	free(src);
 	return (result);
