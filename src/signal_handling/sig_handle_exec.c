@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:06:27 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/09 18:25:16 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:56:12 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	handle_sigint(int sig)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		// $? = 130
+		shell_env.last_exit_code = 130;
 	}
 }
 
@@ -32,7 +32,7 @@ static void	handle_sigquit(int sig)
 		rl_replace_line("", 0);
 		signal(SIGQUIT, SIG_IGN);
 		kill(0, SIGQUIT);
-		// $? = 131
+		shell_env.last_exit_code = 131;
 	}
 }
 

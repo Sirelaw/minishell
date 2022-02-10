@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:23:31 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/10 17:51:03 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/10 18:08:01 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 static void	handle_sigint(int sig)
 {
+	int	fd;
+
 	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		//rl_redisplay();
-		// close all fds
+		fd = 3;
+		while (fd < 2000000)
+		{
+			close(fd);
+			++fd;
+		}
 		sig_handle_interactive();
+		shell_env.last_exit_code = 1;
 		loop(&shell_env);
-		// $? = 1
 	}
 }
 
