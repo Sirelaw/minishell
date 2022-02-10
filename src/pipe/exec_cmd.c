@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 22:03:24 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:47:52 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	open_infile_outfile(t_cmd *cmd)
 		if (cmd->fd[0] < 0)
 		{
 			perror(cmd->infile[i - 1]);
-			exit(EXIT_FAILURE);
+			return (1);
 		}
 	}
 	i = 0;
@@ -57,11 +57,10 @@ int	open_infile_outfile(t_cmd *cmd)
 			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 		else
 			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (cmd->fd[1] < 0)
-		{
+		if (cmd->fd[1] < 0)	
 			perror(cmd->outfile[i - 1]);
-			exit(EXIT_FAILURE);
-		}
+		if (cmd->fd[1] < 0)	
+			return (1);
 	}
 	return (0);
 }
@@ -73,9 +72,8 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 
 	k = i % 2;
 	j = !k;
-	// open_infile_outfile(cmd);
-	// if (check_cmd(input, cmd, i++))
-	// 	exit(EXIT_FAILURE);
+	if ((cmd->infile && cmd->fd[0] < 0) || (cmd->outfile && cmd->fd[1] < 0))
+		exit(EXIT_FAILURE);
 	if (cmd->infile)
 		dup2(cmd->fd[0], STDIN_FILENO);
 	else if (i > 0)
@@ -109,6 +107,7 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 		open_infile_outfile(cmds);
 		if (check_cmd(input, cmds, i++))
 		{
+			close_fds(cmds->fd);
 			cmds = cmds->next;
 			continue ;
 		}
@@ -117,6 +116,7 @@ int	exec_cmds(t_input *input, t_cmd *cmds)
 			return (-1);
 		if (pid == 0)
 			do_exec(input, cmds, i - 1);
+		close_fds(cmds->fd);
 		cmds = cmds->next;
 	}
 	close_fds(input->fd[0]);

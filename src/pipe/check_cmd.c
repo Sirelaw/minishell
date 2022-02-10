@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 22:31:09 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:50:42 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,28 @@ static int	check_path_cmd(char **path, char *cmd, char *s, t_cmd *cmd_attr)
 	return (1);
 }
 
-int	check_cmd(t_input *input, t_cmd *cmd_attr, int i)
+int	check_cmd(t_input *input, t_cmd *cmd, int i)
 {
 	int		ret;
 	char	*s;
 
 	ret = 0;
 	s = NULL;
-	if (built_in_cmd(input, cmd_attr, i))
+	if ((cmd->infile && cmd->fd[0] < 0) || (cmd->outfile && cmd->fd[1] < 0))
 		return (1);
-	if (ft_strnstr((cmd_attr->cmds)[0], "/", ft_strlen((cmd_attr->cmds)[0])))
+	if (built_in_cmd(input, cmd, i))
+		return (1);
+	if (ft_strnstr((cmd->cmds)[0], "/", ft_strlen((cmd->cmds)[0])))
 	{
-		if (!(access((cmd_attr->cmds)[0], X_OK)))
+		if (!(access((cmd->cmds)[0], X_OK)))
 		{
-			cmd_attr->cmdpath = ft_strdup((cmd_attr->cmds)[0]);
+			cmd->cmdpath = ft_strdup((cmd->cmds)[0]);
 			return (0);
 		}
 	}
-	else if (!check_path_cmd(input->path, (cmd_attr->cmds)[0], s, cmd_attr))
+	else if (!check_path_cmd(input->path, (cmd->cmds)[0], s, cmd))
 			return (0);
-	ft_putstr_fd((cmd_attr->cmds)[0], STDERR_FILENO);
+	ft_putstr_fd((cmd->cmds)[0], STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (1);
 }
