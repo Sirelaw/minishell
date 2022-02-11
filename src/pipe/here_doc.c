@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 20:20:38 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:59:31 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	read_to_fd(int fd, char *delimiter, char **envp)
 	temp = readline("--> ");
 	while (temp && ft_strcmp(temp, delimiter))
 	{
-		temp = expand_str(shell_env.envp, &temp);
+		temp = expand_str_heredoc(shell_env.envp, &temp);
 		write(fd, temp, ft_strlen(temp));
 		write(fd, "\n", 1);
 		free(temp);
