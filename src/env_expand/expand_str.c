@@ -37,7 +37,7 @@ static void	expand_var(char **envp, char **str, size_t idx)
 	char	value;
 
 	space = idx;
-	while (!isspace((*str)[space]) && (*str)[space])
+	while (!isspace((*str)[space]) && (*str)[space] && (*str)[space] != '\"')
 		++space;
 	value = (*str)[space];
 	(*str)[space] = 0;
