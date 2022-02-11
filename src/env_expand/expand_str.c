@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/09 19:53:20 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:19:11 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 	ft_strlcpy(result + start, new, ft_strlen(new) + 1);
 	ft_strlcpy(result + start + ft_strlen(new), src + end, ft_strlen(src) - end);
 	free(src);
+	printf("var inreplace: %s\n", result);
 	return (result);
 }
 
@@ -37,13 +38,16 @@ static void	expand_var(char **envp, char **str, size_t idx)
 	char	value;
 
 	space = idx;
-	while (!isspace((*str)[space]) && (*str)[space])
+	while (!isspace((*str)[space]) && (*str)[space]
+		&& (*str)[space] != '"' && (*str)[space] != '\'')
 		++space;
 	value = (*str)[space];
 	(*str)[space] = 0;
+	printf("expand_str/expand_var: %s len: %zu\n", &(*str)[idx], ft_strlen(&(*str)[idx])); 
 	var = env_expand(envp, &(*str)[idx]);
 	(*str)[space] = value;
 	*str = str_replace(*str, idx, space, var);
+	printf("var: %s\n", *str);
 }
 
 /*

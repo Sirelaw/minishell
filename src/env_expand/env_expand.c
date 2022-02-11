@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:38:37 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 11:13:18 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/10 18:50:20 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*env_expand(char **envp, char *var)
 	int		var_len;
 	char	*var_expanded;
 
+	printf("%s\n", var);
 	if ((envp == NULL) || (var == NULL) || (*var == '\0') || (*var != '$'))
 		return ("");
 	if (var[1] == '\0')
@@ -30,5 +31,6 @@ char	*env_expand(char **envp, char *var)
 	if (envp[i] == NULL)
 		return ("");
 	var_expanded = &(envp[i][var_len + 1]);
+	printf("found: %s\n", var_expanded);
 	return (var_expanded);
 }
