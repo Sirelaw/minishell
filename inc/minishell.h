@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/09 20:13:58 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:58:54 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		pipex(t_lexer *l, t_shell_env *shell_env);
  *	given they are not enclosed in single quotes
 */
 char	*expand_str(char **envp, char **str);
+char	*expand_str_heredoc(char **envp, char **str);
 
 int	loop(t_shell_env *shell_env);
 
