@@ -28,7 +28,7 @@ SRC_FILES = main.c lexer/lex_new_token.c \
 		built_in/pwd.c built_in/unset.c pipe/pipex.c pipe/check_cmd.c\
 		pipe/t_cmd_utils.c pipe/cmd_utils.c pipe/exec_cmd.c pipe/here_doc.c\
 		signal_handling/sig_handle_interactive.c signal_handling/sig_handle_exec.c\
-		signal_handling/sig_handle_doc.c
+		signal_handling/sig_handle_doc.c env_expand/remove_quotes.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

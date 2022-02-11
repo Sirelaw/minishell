@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 19:54:36 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/11 22:57:07 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	build_cmd(t_input *input, t_cmd *cmd, t_token *tok)
 		cmd->append_out = FALSE;
 	}
 	else if (tok->type == WORD)
-		add_to_array(&cmd->cmds, expand_str(input->envp, &tok->literal));
+		add_to_array(&cmd->cmds, remove_quotes(expand_str(input->envp, &tok->literal)));
 }
 
 t_cmd	*build_chain(t_lexer *l, t_input *input)

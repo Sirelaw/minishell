@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 11:58:54 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/11 22:58:06 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		pipex(t_lexer *l, t_shell_env *shell_env);
 */
 char	*expand_str(char **envp, char **str);
 char	*expand_str_heredoc(char **envp, char **str);
+char	*remove_quotes(char *str);
 
 int	loop(t_shell_env *shell_env);
 

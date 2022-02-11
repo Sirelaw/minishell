@@ -6,13 +6,13 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:27:36 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 22:50:11 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/11 22:57:57 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	remove_quotes(char **str)
+char	*remove_quotes(char *str)
 {
 	char	*tmp;
 	char	*new;
@@ -20,23 +20,23 @@ void	remove_quotes(char **str)
 	size_t	j;
 	char	quote;
 
-	tmp = ft_calloc(ft_strlen(*str) + 1, sizeof(char));
+	tmp = ft_calloc(ft_strlen(str) + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	quote = 0;
-	while ((*str)[i])
+	while ((str)[i])
 	{
-		if ((*str)[i] == quote && ++i)
+		if ((str)[i] == quote && ++i)
 			quote = 0;
-		else if (ft_strchr("'\"", (*str)[i]) && !quote && ++i)
-			quote = (*str)[i - 1];
+		else if (ft_strchr("'\"", (str)[i]) && !quote && ++i)
+			quote = (str)[i - 1];
 		else
 		{
-			tmp[j] = (*str)[i];
+			tmp[j] = (str)[i];
 			++j;
 			++i;
 		}
 	}
-	free(*str);
-	*str = strdup(tmp);
+	free(str);
+	return (tmp);
 }
