@@ -19,7 +19,7 @@ int	cd(char **argv, char **envp);
 int	echo(char **argv);
 int	env(char **envp);
 int	export(char **argv, char ***envp);
-int	pwd();
+int	pwd(void);
 int	unset(char **argv, char ***envp);
 
 #endif

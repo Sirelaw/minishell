@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 22:58:06 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/12 01:35:21 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ var is passed as the string "$VAR" into the function along with the envp
 pointer.
 */
 char	*env_expand(char **envp, char *var);
-int		pipex(t_lexer *l, t_shell_env *shell_env);
+int		pipex(t_lexer *l);
 
 /*
  *	Expands all environment variables in *str
@@ -44,7 +44,7 @@ int		pipex(t_lexer *l, t_shell_env *shell_env);
 */
 char	*expand_str(char **envp, char **str);
 char	*expand_str_heredoc(char **envp, char **str);
-char	*remove_quotes(char *str);
+char	*rm_quotes(char *str);
 
 int	loop(t_shell_env *shell_env);
 

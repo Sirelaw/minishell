@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:27:36 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 22:57:57 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/12 01:34:40 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*remove_quotes(char *str)
+char	*rm_quotes(char *str)
 {
 	char	*tmp;
 	char	*new;

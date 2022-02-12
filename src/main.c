@@ -33,7 +33,7 @@ int	loop(t_shell_env *shell_env)
 		{
 			j = lex_new(line);
 			sig_handle_exec();
-			pipex(&j, shell_env);
+			pipex(&j);
 			sig_handle_interactive();
 		}
 		free(line);

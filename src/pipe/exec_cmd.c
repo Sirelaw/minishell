@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/10 19:47:52 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/12 02:00:32 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	close_fds(int fd[2])
 	close(fd[1]);
 }
 
-int	do_init(char **envp, t_input *input)
+int	do_init(t_input *input)
 {
-	int	i;
+	int		i;
+	char	**envp;
 
+	envp = shell_env.envp;
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
@@ -45,21 +47,22 @@ int	open_infile_outfile(t_cmd *cmd)
 	{
 		cmd->fd[0] = open(cmd->infile[i - 1], O_RDONLY);
 		if (cmd->fd[0] < 0)
-		{
 			perror(cmd->infile[i - 1]);
+		if (cmd->fd[0] < 0)
 			return (1);
-		}
 	}
 	i = 0;
 	while (cmd->outfile && cmd->outfile[i++])
 	{
 		if (*(cmd->outfile_type[i - 1]) == 'A')
-			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
+			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY
+					| O_CREAT | O_APPEND, 0666);
 		else
-			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (cmd->fd[1] < 0)	
+			cmd->fd[1] = open(cmd->outfile[i - 1], O_WRONLY
+					| O_CREAT | O_TRUNC, 0666);
+		if (cmd->fd[1] < 0)
 			perror(cmd->outfile[i - 1]);
-		if (cmd->fd[1] < 0)	
+		if (cmd->fd[1] < 0)
 			return (1);
 	}
 	return (0);

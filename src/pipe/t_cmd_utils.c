@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:21:50 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/09 18:07:48 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/12 02:01:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_cmd	*new_t_cmd(void)
 
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest)
 {
-	t_cmd *temp;
+	t_cmd	*temp;
 
 	temp = *head;
 	if (temp == NULL)

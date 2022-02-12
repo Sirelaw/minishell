@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/11 11:59:31 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/12 01:32:31 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id, char **envp)
 		return(1);
 	}
 	read_to_fd(fd, delimiter, envp);
-	add_to_array(&cmd->infile, s);
+	add_to_arr(&cmd->infile, s);
 	return (0);
 }
