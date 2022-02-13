@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/13 18:12:14 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:41:45 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	check_built_in(t_cmd *cmd)
 	if (!ft_strcmp(cmd->cmds[0], "cd") || !ft_strcmp(cmd->cmds[0], "echo")
 		|| !ft_strcmp(cmd->cmds[0], "env") || !ft_strcmp(cmd->cmds[0], "export")
 		|| !ft_strcmp(cmd->cmds[0], "pwd")
-		|| !ft_strcmp(cmd->cmds[0], "unset"))
+		|| !ft_strcmp(cmd->cmds[0], "unset")
+		|| !ft_strcmp(cmd->cmds[0], "exit"))
 		return (1);
 	return (0);
 }
@@ -64,6 +65,8 @@ int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 		g_shell_env.last_exit_code = pwd();
 	else if (!ft_strcmp(cmd->cmds[0], "unset"))
 		g_shell_env.last_exit_code = unset(cmd->cmds, &input->envp);
+	else if (!ft_strcmp(cmd->cmds[0], "exit"))
+		g_shell_env.last_exit_code = built_in_exit(cmd->cmds);
 	restore_fds(input, cmd);
 	return (1);
 }
