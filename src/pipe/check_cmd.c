@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 01:52:49 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:11:31 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	check_cmd(t_input *input, t_cmd *cmd, int i)
 	s = NULL;
 	if ((cmd->infile && cmd->fd[0] < 0) || (cmd->outfile && cmd->fd[1] < 0))
 	{
-		shell_env.last_exit_code = 1;
+		g_shell_env.last_exit_code = 1;
 		return (1);
 	}
 	if (built_in_cmd(input, cmd, i))
 		return (1);
-	shell_env.last_exit_code = 0;
+	g_shell_env.last_exit_code = 0;
 	if (ft_strnstr((cmd->cmds)[0], "/", ft_strlen((cmd->cmds)[0])))
 	{
 		if (!(access((cmd->cmds)[0], X_OK)))
@@ -66,6 +66,6 @@ int	check_cmd(t_input *input, t_cmd *cmd, int i)
 		return (0);
 	ft_putstr_fd((cmd->cmds)[0], STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	shell_env.last_exit_code = 127;
+	g_shell_env.last_exit_code = 127;
 	return (1);
 }

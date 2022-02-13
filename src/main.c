@@ -6,14 +6,14 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 17:27:36 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:11:05 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <minishell.h>
 
-t_shell_env	shell_env;
+t_shell_env	g_shell_env;
 
 static char	**dup_envp(char **envp)
 {
@@ -38,7 +38,7 @@ int	loop(t_shell_env *shell_env)
 	char	*line;
 	t_lexer	j;
 
-	//(void)shell_env;
+	(void)shell_env;
 	sig_handle_interactive();
 	while (1)
 	{
@@ -60,10 +60,10 @@ int	loop(t_shell_env *shell_env)
 
 int	main(int argc, char **argv, char **envp)
 {
-	shell_env.envp = dup_envp(envp);
-	shell_env.last_exit_code = 0;
+	g_shell_env.envp = dup_envp(envp);
+	g_shell_env.last_exit_code = 0;
 	(void)argc;
 	(void)argv;
-	loop(&shell_env);
+	loop(&g_shell_env);
 	return (EXIT_SUCCESS);
 }

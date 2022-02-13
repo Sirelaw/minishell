@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:23:31 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/10 18:08:01 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:13:16 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	handle_sigint(int sig)
 			++fd;
 		}
 		sig_handle_interactive();
-		shell_env.last_exit_code = 1;
-		loop(&shell_env);
+		g_shell_env.last_exit_code = 1;
+		loop(&g_shell_env);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 02:00:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:12:25 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	do_init(t_input *input)
 	int		i;
 	char	**envp;
 
-	envp = shell_env.envp;
+	envp = g_shell_env.envp;
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
