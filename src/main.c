@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 22:36:59 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:27:36 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 #include <minishell.h>
 
 t_shell_env	shell_env;
+
+static char	**dup_envp(char **envp)
+{
+	char	**new;
+	size_t	i;
+
+	i = 0;
+	while (envp[i])
+		++i;
+	new = ft_calloc(i + 1, sizeof(char *));
+	i = 0;
+	while (envp[i])
+	{
+		new[i] = ft_strdup(envp[i]);
+		++i;
+	}
+	return (new);
+}
 
 int	loop(t_shell_env *shell_env)
 {
@@ -42,7 +60,7 @@ int	loop(t_shell_env *shell_env)
 
 int	main(int argc, char **argv, char **envp)
 {
-	shell_env.envp = envp;
+	shell_env.envp = dup_envp(envp);
 	shell_env.last_exit_code = 0;
 	(void)argc;
 	(void)argv;

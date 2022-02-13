@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:09 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/05 18:12:37 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:15:15 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*buf;
+
+	buf = getcwd(NULL, 0);
+	printf("%s\n", buf);
+	free(buf);
 	return (0);
 }
