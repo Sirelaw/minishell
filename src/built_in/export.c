@@ -6,11 +6,62 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:05 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 17:35:24 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:52:29 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <built_in.h>
+
+size_t	get_len(char **env)
+{
+	size_t	len;
+
+	len = 0;
+	while (env[len])
+		++len;
+	return (len);
+}
+
+void	print(char **env)
+{
+	size_t	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("declare -x ");
+		printf("%s\n", env[i]);
+		++i;
+	}
+}
+
+void	print_env(char **argv, char **env)
+{
+	size_t	i;
+	char	*tmp;
+	size_t	len;
+
+	if (argv[1])
+		return ;
+	len = get_len(env);
+	while (len)
+	{
+		i = 0;
+		while (i < len - 1)
+		{
+			if (ft_strcmp(env[i], env[i + 1]) > 0)
+			{
+				tmp = env[i];
+				env[i] = env[i + 1];
+				env[i + 1] = tmp;
+			}
+			++i;
+		}
+		--len;
+	}
+	print(env);
+	free(env);
+}
 
 static int	env_add(char ***env, char *var)
 {
@@ -30,7 +81,6 @@ static int	env_add(char ***env, char *var)
 		++idx;
 	}
 	new[idx] = var;
-	free(*env);
 	*env = new;
 	return (0);
 }
@@ -41,6 +91,7 @@ int	export(char **argv, char ***envp)
 	size_t	y;
 
 	x = 0;
+	print_env(argv, dup_envp(*envp));
 	while (argv[x])
 	{
 		y = 0;
@@ -50,7 +101,7 @@ int	export(char **argv, char ***envp)
 				- (*envp)[y]) == 0)
 			{
 				free((*envp)[y]);
-				(*envp)[y] = argv[x];
+				(*envp)[y] = ft_strdup(argv[x]);
 				break ;
 			}
 			++y;

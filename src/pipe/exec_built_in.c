@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/13 18:41:45 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 22:35:59 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 	else if (!ft_strcmp(cmd->cmds[0], "env"))
 		g_shell_env.last_exit_code = env(input->envp);
 	else if (!ft_strcmp(cmd->cmds[0], "export"))
-		g_shell_env.last_exit_code = export(cmd->cmds, &input->envp);
+		g_shell_env.last_exit_code = export(cmd->cmds, &g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "pwd"))
 		g_shell_env.last_exit_code = pwd();
 	else if (!ft_strcmp(cmd->cmds[0], "unset"))
-		g_shell_env.last_exit_code = unset(cmd->cmds, &input->envp);
+		g_shell_env.last_exit_code = unset(cmd->cmds, &g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "exit"))
 		g_shell_env.last_exit_code = built_in_exit(cmd->cmds);
 	restore_fds(input, cmd);

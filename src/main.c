@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 18:35:24 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 21:24:01 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_shell_env	g_shell_env;
 
-static char	**dup_envp(char **envp)
+char	**dup_envp(char **envp)
 {
 	char	**new;
 	size_t	i;
@@ -24,6 +24,7 @@ static char	**dup_envp(char **envp)
 	while (envp[i])
 		++i;
 	new = ft_calloc(i + 1, sizeof(char *));
+	new[i] = NULL;
 	i = 0;
 	while (envp[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 18:10:57 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:37:53 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*expand_str(char **envp, char **str);
 char	*expand_str_heredoc(char **envp, char **str);
 char	*rm_quotes(char *str);
 
-int	loop(t_shell_env *shell_env);
+int		loop(t_shell_env *shell_env);
+char	**dup_envp(char **envp);
 
 #endif
