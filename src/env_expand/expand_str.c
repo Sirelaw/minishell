@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 17:50:45 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:53:29 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	expand_var(char **envp, char **str, size_t idx)
 
 	space = idx;
 	while (!isspace((*str)[space]) && (*str)[space]
-		&& (*str)[space] != '"' && (*str)[space] != '\'')
+		&& (*str)[space] != '"' && (*str)[space] != '\''
+		&& (*str)[space] != '=')
 		++space;
 	value = (*str)[space];
 	(*str)[space] = 0;
@@ -73,7 +74,6 @@ static void	expand_var_heredoc(char **envp, char **str, size_t idx)
 char	*expand_str_heredoc(char **envp, char **str)
 {
 	size_t	idx;
-	char	*var;
 
 	idx = 0;
 	while ((*str)[idx])
@@ -93,8 +93,6 @@ char	*expand_str(char **envp, char **str)
 {
 	size_t	idx;
 	char	quote;
-	size_t	space;
-	char	*var;
 
 	idx = 0;
 	quote = 0;

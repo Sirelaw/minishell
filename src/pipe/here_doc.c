@@ -6,13 +6,13 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/13 18:12:45 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:56:26 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-void	read_to_fd(int fd, char *delimiter, char **envp)
+void	read_to_fd(int fd, char *delimiter)
 {
 	char	*temp;
 
@@ -30,23 +30,23 @@ void	read_to_fd(int fd, char *delimiter, char **envp)
 	sig_handle_exec();
 }
 
-int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id, char **envp)
+int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id)
 {
-	int 	fd;
+	int		fd;
 	char	*s;
 	char	*temp;
 
 	temp = ft_itoa(here_doc_id);
-	s =  ft_strjoin("./src/here_docs/", temp);
+	s = ft_strjoin("./src/here_docs/", temp);
 	free(temp);
 	unlink(s);
 	fd = open(s, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd < 0)
 	{
 		perror("Could not open heredoc. Check for ./here_docs dir");
-		return(1);
+		return (1);
 	}
-	read_to_fd(fd, delimiter, envp);
+	read_to_fd(fd, delimiter);
 	add_to_arr(&cmd->infile, s);
 	return (0);
 }

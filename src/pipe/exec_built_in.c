@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/13 22:35:59 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:54:47 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	dup_fds(t_input *input, t_cmd *cmd, int i)
 		dup2(input->fd[k][1], STDOUT_FILENO);
 }
 
-static void	restore_fds(t_input *input, t_cmd *cmd)
+static void	restore_fds(t_cmd *cmd)
 {
 	dup2(cmd->re_in, STDIN_FILENO);
 	dup2(cmd->re_out, STDOUT_FILENO);
@@ -67,6 +67,6 @@ int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 		g_shell_env.last_exit_code = unset(cmd->cmds, &g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "exit"))
 		g_shell_env.last_exit_code = built_in_exit(cmd->cmds);
-	restore_fds(input, cmd);
+	restore_fds(cmd);
 	return (1);
 }
