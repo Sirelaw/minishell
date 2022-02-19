@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:15:08 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 18:06:21 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:51:44 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*lex_read_word(t_lexer *l)
 			quote = '"';
 		else if (l->ch == '\'' && !quote)
 			quote = '\'';
-		if (ft_strchr("<>|& \f\n\r\t\v", lex_peek_char(l)) && !quote)
+		if (ft_strchr("<> \f\n\r\t\v", lex_peek_char(l)) && !quote)
 			break ;
 		lex_read_char(l);
 	}
@@ -79,7 +79,7 @@ t_token	lex_next_token(t_lexer *l)
 		tok = lex_read_in(l);
 	else if (l->ch == '>')
 		tok = lex_read_out(l);
-	else if (!ft_strchr("&|", l->ch))
+	else if (!ft_strchr("\n", l->ch))
 		tok = lex_new_token(WORD, lex_read_word(l));
 	else
 		return (lex_new_token(END, ft_strdup("\\n")));

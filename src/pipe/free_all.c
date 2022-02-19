@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:55:13 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/15 17:05:43 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/15 19:30:09 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	free_all(t_input *input)
 			free_cmd(cmd);
 			cmd = temp;
 		}
+		free_arr(input->path);
 		free(input);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:05 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 21:52:29 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:18:29 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	print(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("declare -x ");
-		printf("%s\n", env[i]);
+		*ft_strchr(env[i], '=') = 0;
+		printf("declare -x %s=\"%s\"\n", env[i], ft_strchr(env[i], 0) + 1);
 		++i;
+		free(env[i]);
 	}
 }
 
@@ -43,6 +44,7 @@ void	print_env(char **argv, char **env)
 
 	if (argv[1])
 		return ;
+	env = dup_envp(env);
 	len = get_len(env);
 	while (len)
 	{
@@ -90,8 +92,8 @@ int	export(char **argv, char ***envp)
 	size_t	x;
 	size_t	y;
 
-	x = 0;
-	print_env(argv, dup_envp(*envp));
+	x = 1;
+	print_env(argv, *envp);
 	while (argv[x])
 	{
 		y = 0;
