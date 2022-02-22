@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/15 17:56:42 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:07:16 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <dirent.h>
+# include <sys/wait.h>
 # include <errno.h>
 
 typedef enum e_bool {

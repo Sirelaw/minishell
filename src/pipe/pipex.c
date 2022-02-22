@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/13 18:10:42 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:04:27 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	pipex(t_lexer *l)
 {
 	t_input	*input;
-	int		i;
 	int		exit_code;
 
 	errno = 0;
-	i = 0;
 	input = malloc(sizeof(t_input));
 	if (!input || do_init(input))
 		free_all(input);

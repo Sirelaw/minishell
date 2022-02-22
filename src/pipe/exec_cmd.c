@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/15 17:51:58 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:14:24 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	close_fds(int fd[2])
 {
-	close(fd[0]);
-	close(fd[1]);
+	if (fd[0] != -1)
+		close(fd[0]);
+	if (fd[1] != -1)
+		close(fd[1]);
 }
 
 int	do_init(t_input *input)
