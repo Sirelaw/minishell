@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:15:08 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/05 18:10:42 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 15:51:44 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,39 @@ char	*lex_read_word(t_lexer *l)
 			quote = '"';
 		else if (l->ch == '\'' && !quote)
 			quote = '\'';
-		if (ft_strchr("<>|& \f\n\r\t\v", lex_peek_char(l)) && !quote)
+		if (ft_strchr("<> \f\n\r\t\v", lex_peek_char(l)) && !quote)
 			break ;
 		lex_read_char(l);
 	}
 	return (ft_substr(l->input, start, l->pos + 1 - start));
+}
+
+t_token	lex_read_in(t_lexer *l)
+{
+	t_token	tok;
+
+	if (lex_peek_char(l) == '<')
+	{
+		tok = lex_new_token(APPEND_IN, ft_strdup("<<"));
+		lex_read_char(l);
+	}
+	else
+		tok = lex_new_token(RE_IN, ft_strdup("<"));
+	return (tok);
+}
+
+t_token	lex_read_out(t_lexer *l)
+{
+	t_token	tok;
+
+	if (lex_peek_char(l) == '>')
+	{
+		tok = lex_new_token(APPEND_OUT, ft_strdup(">>"));
+		lex_read_char(l);
+	}
+	else
+		tok = lex_new_token(RE_OUT, ft_strdup(">"));
+	return (tok);
 }
 
 t_token	lex_next_token(t_lexer *l)
@@ -48,26 +76,10 @@ t_token	lex_next_token(t_lexer *l)
 	if (l->ch == '|')
 		tok = lex_new_token(PIPE, ft_strdup("|"));
 	else if (l->ch == '<')
-	{
-		if (lex_peek_char(l) == '<')
-		{
-			tok = lex_new_token(APPEND_IN, ft_strdup("<<"));
-			lex_read_char(l);
-		}
-		else
-			tok = lex_new_token(RE_IN, ft_strdup("<"));
-	}
+		tok = lex_read_in(l);
 	else if (l->ch == '>')
-	{
-		if (lex_peek_char(l) == '>')
-		{
-			tok = lex_new_token(APPEND_OUT, ft_strdup(">>"));
-			lex_read_char(l);
-		}
-		else
-			tok = lex_new_token(RE_OUT, ft_strdup(">"));
-	}
-	else if (!ft_strchr("&|", l->ch))
+		tok = lex_read_out(l);
+	else if (!ft_strchr("\n", l->ch))
 		tok = lex_new_token(WORD, lex_read_word(l));
 	else
 		return (lex_new_token(END, ft_strdup("\\n")));

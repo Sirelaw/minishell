@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:54:29 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/10 17:56:47 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:14:53 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	handle_sigsegv(int sig)
 	{
 		printf("\033[F");
 		printf("> exit\n");
-		exit(1);
+		exit(0);
 	}
 }
 
@@ -30,7 +30,7 @@ static void	handle_sigint(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		shell_env.last_exit_code = 1;
+		g_shell_env.last_exit_code = 1;
 	}
 }
 

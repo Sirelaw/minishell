@@ -21,7 +21,7 @@ char	**ft_split(char const *s, char c)
 	size_t	end;
 	size_t	idx;
 
-	split = malloc(nbr_of_ptrs((char*)s, c) * sizeof(char *));
+	split = malloc(nbr_of_ptrs((char *)s, c) * sizeof(char *));
 	start = 0;
 	end = 0;
 	idx = 0;
@@ -33,7 +33,7 @@ char	**ft_split(char const *s, char c)
 		while (s[end] != c && s[end])
 			++end;
 		if (start == end)
-			break;
+			break ;
 		split[idx] = ft_substr(s, start, end - start);
 		++idx;
 		start = end;

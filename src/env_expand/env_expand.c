@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:38:37 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/11 21:17:05 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:46:44 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*env_expand(char **envp, char *var)
 		return ("");
 	if (var[1] == '\0')
 		return ("$");
+	if (!ft_strcmp("$?", var))
+		return (ft_itoa(g_shell_env.last_exit_code));
 	var_len = ft_strlen(var) - 1;
 	i = 0;
 	while (envp[i] && (ft_strncmp(envp[i], (var + 1), var_len)

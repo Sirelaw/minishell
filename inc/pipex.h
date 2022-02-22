@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 01:47:46 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:56:42 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include <dirent.h>
 # include <errno.h>
 
-typedef enum e_bool {	FALSE,
-						TRUE} t_bool;
+typedef enum e_bool {
+	FALSE,
+	TRUE
+}	t_bool;
 
 typedef struct s_cmd
 {
@@ -54,7 +56,7 @@ int		check_cmd(t_input *input, t_cmd *cmd_attr, int i);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 char	**add_to_arr(char ***arr, char *s);
-int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id, char **envp);
+int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id);
 void	free_all(t_input *input);
 t_cmd	*build_chain(t_lexer *l, t_input *input, t_token tok);
 void	close_fds(int fd[2]);

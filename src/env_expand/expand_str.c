@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/11 22:51:05 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:53:29 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 		return (NULL);
 	ft_strlcpy(result, src, start + 1);
 	ft_strlcpy(result + start, new, ft_strlen(new) + 1);
-	ft_strlcpy(result + start + ft_strlen(new), src + end, ft_strlen(src) - end + 1);
+	ft_strlcpy(result + start + ft_strlen(new), src + end, \
+		ft_strlen(src) - end + 1);
 	free(src);
 	return (result);
 }
@@ -38,10 +39,11 @@ static void	expand_var(char **envp, char **str, size_t idx)
 
 	space = idx;
 	while (!isspace((*str)[space]) && (*str)[space]
-		&& (*str)[space] != '"' && (*str)[space] != '\'')
+		&& (*str)[space] != '"' && (*str)[space] != '\''
+		&& (*str)[space] != '=')
 		++space;
 	value = (*str)[space];
-	(*str)[space] = 0; 
+	(*str)[space] = 0;
 	var = env_expand(envp, &(*str)[idx]);
 	(*str)[space] = value;
 	*str = str_replace(*str, idx, space, var);
@@ -72,7 +74,6 @@ static void	expand_var_heredoc(char **envp, char **str, size_t idx)
 char	*expand_str_heredoc(char **envp, char **str)
 {
 	size_t	idx;
-	char	*var;
 
 	idx = 0;
 	while ((*str)[idx])
@@ -83,6 +84,7 @@ char	*expand_str_heredoc(char **envp, char **str)
 	}
 	return (*str);
 }
+
 /*
  *	Expands all environment variables in *str
  *	given they are not enclosed in single quotes
@@ -91,12 +93,9 @@ char	*expand_str(char **envp, char **str)
 {
 	size_t	idx;
 	char	quote;
-	size_t	space;
-	char	*var;
 
 	idx = 0;
 	quote = 0;
-
 	while ((*str)[idx])
 	{
 		if ((*str)[idx] == quote)

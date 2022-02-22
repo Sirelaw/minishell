@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 17:15:31 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 17:15:32 by sachmull         ###   ########.fr       */
+/*   Created: 2022/02/13 18:24:00 by sachmull          #+#    #+#             */
+/*   Updated: 2022/02/13 18:41:57 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <built_in.h>
 
-int	ft_isspace(int c)
+int	built_in_exit(char **argv)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r');
+	printf("exit\n");
+	if (argv[1])
+	{
+		if (argv[2])
+		{
+			printf("minishell: exit: too many arguments\n");
+			return (1);
+		}
+		exit(ft_atoi(argv[1]));
+	}
+	else
+		exit(g_shell_env.last_exit_code);
+	return (0);
 }

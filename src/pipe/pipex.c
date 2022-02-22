@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 02:01:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:10:42 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	pipex(t_lexer *l)
 		pipe(input->fd[0]);
 		pipe(input->fd[1]);
 		exit_code = exec_cmds(input, input->cmd_chain);
-		if (WIFEXITED(exit_code) && !shell_env.last_exit_code)
-			shell_env.last_exit_code = WEXITSTATUS(exit_code);
+		if (WIFEXITED(exit_code) && !g_shell_env.last_exit_code)
+			g_shell_env.last_exit_code = WEXITSTATUS(exit_code);
 	}
 	free_all(input);
-	return (shell_env.last_exit_code);
+	return (g_shell_env.last_exit_code);
 }

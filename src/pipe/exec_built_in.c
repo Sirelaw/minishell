@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 01:58:03 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:54:47 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	dup_fds(t_input *input, t_cmd *cmd, int i)
 		dup2(input->fd[k][1], STDOUT_FILENO);
 }
 
-static void	restore_fds(t_input *input, t_cmd *cmd)
+static void	restore_fds(t_cmd *cmd)
 {
 	dup2(cmd->re_in, STDIN_FILENO);
 	dup2(cmd->re_out, STDOUT_FILENO);
@@ -42,7 +42,8 @@ static int	check_built_in(t_cmd *cmd)
 	if (!ft_strcmp(cmd->cmds[0], "cd") || !ft_strcmp(cmd->cmds[0], "echo")
 		|| !ft_strcmp(cmd->cmds[0], "env") || !ft_strcmp(cmd->cmds[0], "export")
 		|| !ft_strcmp(cmd->cmds[0], "pwd")
-		|| !ft_strcmp(cmd->cmds[0], "unset"))
+		|| !ft_strcmp(cmd->cmds[0], "unset")
+		|| !ft_strcmp(cmd->cmds[0], "exit"))
 		return (1);
 	return (0);
 }
@@ -53,17 +54,19 @@ int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 		return (0);
 	dup_fds(input, cmd, i);
 	if (!ft_strcmp(cmd->cmds[0], "cd"))
-		shell_env.last_exit_code = cd(cmd->cmds, input->envp);
+		g_shell_env.last_exit_code = cd(cmd->cmds, input->envp);
 	else if (!ft_strcmp(cmd->cmds[0], "echo"))
-		shell_env.last_exit_code = echo(cmd->cmds);
+		g_shell_env.last_exit_code = echo(cmd->cmds);
 	else if (!ft_strcmp(cmd->cmds[0], "env"))
-		shell_env.last_exit_code = env(input->envp);
+		g_shell_env.last_exit_code = env(input->envp);
 	else if (!ft_strcmp(cmd->cmds[0], "export"))
-		shell_env.last_exit_code = export(cmd->cmds, &input->envp);
+		g_shell_env.last_exit_code = export(cmd->cmds, &g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "pwd"))
-		shell_env.last_exit_code = pwd();
+		g_shell_env.last_exit_code = pwd();
 	else if (!ft_strcmp(cmd->cmds[0], "unset"))
-		shell_env.last_exit_code = unset(cmd->cmds, &input->envp);
-	restore_fds(input, cmd);
+		g_shell_env.last_exit_code = unset(cmd->cmds, &g_shell_env.envp);
+	else if (!ft_strcmp(cmd->cmds[0], "exit"))
+		g_shell_env.last_exit_code = built_in_exit(cmd->cmds);
+	restore_fds(cmd);
 	return (1);
 }

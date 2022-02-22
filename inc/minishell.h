@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:38 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/12 01:35:21 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:37:53 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_shell_env
 	int		last_exit_code;
 }				t_shell_env;
 
-extern t_shell_env	shell_env;
+extern t_shell_env	g_shell_env;
 
 /*
 var is passed as the string "$VAR" into the function along with the envp
@@ -46,6 +46,7 @@ char	*expand_str(char **envp, char **str);
 char	*expand_str_heredoc(char **envp, char **str);
 char	*rm_quotes(char *str);
 
-int	loop(t_shell_env *shell_env);
+int		loop(t_shell_env *shell_env);
+char	**dup_envp(char **envp);
 
 #endif
