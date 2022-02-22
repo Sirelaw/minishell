@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/22 14:20:43 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/22 23:36:14 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,23 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 	set_flags(cmd, tok);
 	if ((tok->type == WORD) && (cmd->re_in == TRUE))
 	{
-		add_to_arr(&cmd->infile, tok->literal);
+		add_to_arr(&cmd->infile, rm_quotes(tok->literal));
 		cmd->re_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->re_out == TRUE))
 	{
-		add_to_arr(&cmd->outfile, tok->literal);
+		add_to_arr(&cmd->outfile, rm_quotes(tok->literal));
 		add_to_arr(&cmd->outfile_type, ft_strdup("W"));
 		cmd->re_out = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->append_in == TRUE))
 	{
-		here_doc(cmd, tok->literal, ip->here_doc_id++);
+		here_doc(cmd, rm_quotes(tok->literal), ip->here_doc_id++);
 		cmd->append_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->append_out == TRUE))
 	{
-		add_to_arr(&cmd->outfile, tok->literal);
+		add_to_arr(&cmd->outfile, rm_quotes(tok->literal));
 		add_to_arr(&cmd->outfile_type, ft_strdup("A"));
 		cmd->append_out = FALSE;
 	}

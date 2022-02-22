@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:15:08 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/22 23:21:34 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/22 23:42:41 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ char	*lex_read_word(t_lexer *l)
 	{
 		if (l->ch == quote)
 			quote = 0;
-		else if (l->ch == '"' && !quote && ft_strchr(&(l->input[l->pos + 1]), '"'))
+		else if (l->ch == '"' && !quote
+			&& ft_strchr(&(l->input[l->pos + 1]), '"'))
 			quote = '"';
-		else if (l->ch == '\'' && !quote && ft_strchr(&(l->input[l->pos + 1]), '\''))
+		else if (l->ch == '\'' && !quote
+			&& ft_strchr(&(l->input[l->pos + 1]), '\''))
 			quote = '\'';
 		if (ft_strchr("<>| \f\n\r\t\v", lex_peek_char(l)) && !quote)
 			break ;
