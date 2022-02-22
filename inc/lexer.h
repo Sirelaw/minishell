@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:34 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 17:11:37 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:45:31 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <lexer.h>
 # include <libft.h>
 
 typedef enum e_type {
@@ -47,5 +48,6 @@ t_token	lex_next_token(t_lexer *l);
 t_token	lex_new_token(t_type type, char *literal);
 char	lex_peek_char(t_lexer *l);
 int		lex_valid_syntax(char *input);
+char	*rm_quotes(char *str);
 
 #endif

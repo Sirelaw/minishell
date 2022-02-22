@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 17:53:29 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:02:09 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static char	*str_replace(char *src, size_t start, size_t end, char *new)
 	ft_strlcpy(result + start + ft_strlen(new), src + end, \
 		ft_strlen(src) - end + 1);
 	free(src);
+	free(new);
 	return (result);
 }
 

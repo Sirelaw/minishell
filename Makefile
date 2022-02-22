@@ -12,6 +12,7 @@ BLUE	= \033[34m
 FLAGS = -Wall -Wextra -Werror
 LFLAGS = -L$$HOME/.brew/opt/readline/lib -lreadline
 CPFLAGS = -I$$HOME/.brew/opt/readline/include
+# -I/usr/include/readline
 
 # Folders
 SRC_DIR = ./src/
@@ -27,7 +28,7 @@ SRC_FILES = main.c lexer/lex_new_token.c \
 		built_in/pwd.c built_in/exit.c built_in/unset.c pipe/pipex.c pipe/check_cmd.c pipe/exec_built_in.c\
 		pipe/t_cmd_utils.c pipe/cmd_utils.c pipe/exec_cmd.c pipe/here_doc.c pipe/free_all.c\
 		signal_handling/sig_handle_interactive.c signal_handling/sig_handle_exec.c\
-		signal_handling/sig_handle_doc.c env_expand/rm_quotes.c 
+		signal_handling/sig_handle_doc.c lexer/rm_quotes.c 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
