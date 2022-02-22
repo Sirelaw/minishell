@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 17:53:29 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:01:03 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ char	*expand_str(char **envp, char **str)
 	{
 		if ((*str)[idx] == quote)
 			quote = 0;
-		else if ((*str)[idx] == '"' && !quote)
+		else if ((*str)[idx] == '"' && !quote && ft_strchr(&(*str)[idx + 1], '"'))
 			quote = '"';
-		else if ((*str)[idx] == '\'' && !quote)
+		else if ((*str)[idx] == '\'' && !quote && ft_strchr(&(*str)[idx + 1], '\''))
 			quote = '\'';
 		else if ((*str)[idx] == '$' && quote != '\'')
 			expand_var(envp, str, idx);

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 21:27:36 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 17:56:57 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/19 18:06:48 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*rm_quotes(char *str)
 	{
 		if ((str)[i] == quote && ++i)
 			quote = 0;
-		else if (ft_strchr("'\"", (str)[i]) && !quote && ++i)
+		else if (ft_strchr("'\"", (str)[i]) && !quote && ft_strchr(&str[i + 1], *ft_strchr("'\"", str[i])) && ++i)
 			quote = (str)[i - 1];
 		else
 		{
