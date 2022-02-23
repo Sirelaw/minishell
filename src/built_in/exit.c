@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 18:24:00 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/23 19:31:48 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:35:26 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ int	all_digits(char *str)
 
 int	built_in_exit(char **argv)
 {
+	if (argv && argv[1] && argv[2])
+	{
+		printf("minishell: exit: too many arguments\n");
+		return (1);
+	}
 	free_env();
 	if (argv && printf("exit\n"))
 	{
 		if (argv[1])
 		{
-			if (argv[2])
-			{
-				printf("minishell: exit: too many arguments\n");
-				return (1);
-			}
 			if (all_digits(argv[1]))
 				exit(ft_atoi(argv[1]));
 			else
