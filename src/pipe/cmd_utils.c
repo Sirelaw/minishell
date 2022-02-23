@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 03:04:00 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:29:50 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static void	set_flags(t_cmd *cmd, t_token *tok)
 		cmd->append_in = TRUE;
 	else if (tok->type == APPEND_OUT)
 		cmd->append_out = TRUE;
+	if ((tok->type == RE_IN) || (tok->type == RE_OUT)
+		|| (tok->type == APPEND_IN) || (tok->type == APPEND_OUT))
+		free(tok->literal);
 }
 
 static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
