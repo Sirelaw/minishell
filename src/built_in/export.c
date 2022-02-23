@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:05 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/19 17:18:29 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:27:45 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	print(char **env)
 	{
 		*ft_strchr(env[i], '=') = 0;
 		printf("declare -x %s=\"%s\"\n", env[i], ft_strchr(env[i], 0) + 1);
-		++i;
 		free(env[i]);
+		++i;
 	}
 }
 
@@ -82,7 +82,8 @@ static int	env_add(char ***env, char *var)
 		new[idx] = (*env)[idx];
 		++idx;
 	}
-	new[idx] = var;
+	new[idx] = ft_strdup(var);
+	free(*env);
 	*env = new;
 	return (0);
 }

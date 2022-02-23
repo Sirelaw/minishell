@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:12 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/19 15:58:34 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:21:54 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	env_remove(char ***env, char *var)
 				return (1);
 		++idx;
 	}
+	free(var);
 	free(*env);
 	*env = new;
 	return (0);

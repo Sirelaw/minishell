@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:53 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/19 16:05:02 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:29:37 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int	cd(char **argv, char **envp)
 		}
 	}
 	update_cwd(envp);
+	free(home);
 	return (0);
 }
