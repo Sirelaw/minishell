@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 00:07:16 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 01:04:50 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_input
 int		do_init(t_input *input);
 int		exec_cmds(t_input *input, t_cmd *cmds);
 int		built_in_cmd(t_input *input, t_cmd *cmd, int i);
+int		open_infile_outfile(t_cmd *cmd);
 int		check_cmd(t_input *input, t_cmd *cmd_attr, int i);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
