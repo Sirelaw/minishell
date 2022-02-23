@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 16:23:08 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 16:23:33 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id)
 		return (1);
 	}
 	read_to_fd(fd, delimiter);
+	close(fd);
 	add_to_arr(&cmd->infile, s);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/15 17:56:42 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 02:44:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <dirent.h>
+# include <sys/wait.h>
 # include <errno.h>
 
 typedef enum e_bool {
@@ -52,13 +53,14 @@ typedef struct s_input
 int		do_init(t_input *input);
 int		exec_cmds(t_input *input, t_cmd *cmds);
 int		built_in_cmd(t_input *input, t_cmd *cmd, int i);
+int		open_infile_outfile(t_cmd *cmd);
 int		check_cmd(t_input *input, t_cmd *cmd_attr, int i);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 char	**add_to_arr(char ***arr, char *s);
 int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id);
 void	free_all(t_input *input);
-t_cmd	*build_chain(t_lexer *l, t_input *input, t_token tok);
+t_cmd	*build_chain(t_lexer *l, t_input *input);
 void	close_fds(int fd[2]);
 
 #endif

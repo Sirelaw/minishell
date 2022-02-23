@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:17:20 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/15 19:00:54 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 03:29:23 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	loop(t_shell_env *shell_env)
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL)
-			;
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		if (lex_valid_syntax(line))

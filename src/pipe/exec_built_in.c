@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/15 17:54:47 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 00:39:44 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	restore_fds(t_cmd *cmd)
 {
 	dup2(cmd->re_in, STDIN_FILENO);
 	dup2(cmd->re_out, STDOUT_FILENO);
+	close(cmd->re_in);
+	close(cmd->re_out);
 }
 
 static int	check_built_in(t_cmd *cmd)
