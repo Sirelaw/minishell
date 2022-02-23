@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 18:24:00 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/23 19:16:02 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:18:44 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	built_in_exit(char **argv)
 				exit(ft_atoi(argv[1]));
 			else
 			{
-				printf("minishell: exit: %s: numeric argument required\n", argv[1]);
+				printf("minishell: exit: %s: "\
+				"numeric argument required\n", argv[1]);
 				exit(255);
 			}
 		}
