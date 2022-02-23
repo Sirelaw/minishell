@@ -6,11 +6,24 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 18:24:00 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/23 19:18:44 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:31:48 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <built_in.h>
+
+void	free_env(void)
+{
+	size_t	i;
+
+	i = 0;
+	while (g_shell_env.envp[i])
+	{
+		free(g_shell_env.envp[i]);
+		++i;
+	}
+	free(g_shell_env.envp);
+}
 
 int	all_digits(char *str)
 {
@@ -28,9 +41,9 @@ int	all_digits(char *str)
 
 int	built_in_exit(char **argv)
 {
-	if (argv)
+	free_env();
+	if (argv && printf("exit\n"))
 	{
-		printf("exit\n");
 		if (argv[1])
 		{
 			if (argv[2])
