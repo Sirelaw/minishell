@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 01:04:50 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 02:44:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 char	**add_to_arr(char ***arr, char *s);
 int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id);
 void	free_all(t_input *input);
-t_cmd	*build_chain(t_lexer *l, t_input *input, t_token tok);
+t_cmd	*build_chain(t_lexer *l, t_input *input);
 void	close_fds(int fd[2]);
 
 #endif

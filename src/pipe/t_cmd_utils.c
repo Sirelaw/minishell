@@ -6,11 +6,44 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:21:50 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/12 02:01:22 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 02:30:02 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
+
+static char	**init_arr(char ***arr, char *s)
+{
+	*arr = malloc(sizeof(char *) * 2);
+	if (*arr == NULL)
+		return (NULL);
+	(*arr)[0] = s;
+	(*arr)[1] = NULL;
+	return (*arr);
+}
+
+char	**add_to_arr(char ***arr, char *s)
+{
+	int		i;
+	char	**temp;
+
+	if (*arr == NULL)
+		return (init_arr(arr, s));
+	i = 0;
+	while ((*arr)[i])
+		i++;
+	temp = malloc(sizeof(char *) * (i + 2));
+	if (!temp)
+		return (NULL);
+	i = 0;
+	while ((*arr)[i++])
+		temp[i - 1] = (*arr)[i - 1];
+	temp[i - 1] = s;
+	temp[i] = NULL;
+	free(*arr);
+	*arr = temp;
+	return (*arr);
+}
 
 t_cmd	*new_t_cmd(void)
 {

@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 00:04:27 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 02:44:36 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pipex(t_lexer *l)
 	input = malloc(sizeof(t_input));
 	if (!input || do_init(input))
 		free_all(input);
-	input->cmd_chain = build_chain(l, input, lex_next_token(l));
+	input->cmd_chain = build_chain(l, input);
 	if (input->cmd_chain->cmds)
 	{
 		pipe(input->fd[0]);

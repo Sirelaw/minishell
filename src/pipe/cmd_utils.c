@@ -6,44 +6,11 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/22 23:36:14 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/23 03:04:00 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
-
-static char	**init_arr(char ***arr, char *s)
-{
-	*arr = malloc(sizeof(char *) * 2);
-	if (*arr == NULL)
-		return (NULL);
-	(*arr)[0] = s;
-	(*arr)[1] = NULL;
-	return (*arr);
-}
-
-char	**add_to_arr(char ***arr, char *s)
-{
-	int		i;
-	char	**temp;
-
-	if (*arr == NULL)
-		return (init_arr(arr, s));
-	i = 0;
-	while ((*arr)[i])
-		i++;
-	temp = malloc(sizeof(char *) * (i + 2));
-	if (!temp)
-		return (NULL);
-	i = 0;
-	while ((*arr)[i++])
-		temp[i - 1] = (*arr)[i - 1];
-	temp[i - 1] = s;
-	temp[i] = NULL;
-	free(*arr);
-	*arr = temp;
-	return (*arr);
-}
 
 static void	set_flags(t_cmd *cmd, t_token *tok)
 {
@@ -86,16 +53,14 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 		add_to_arr(&cmd->cmds, rm_quotes(expand_str(ip->envp, &tok->literal)));
 }
 
-t_cmd	*build_chain(t_lexer *l, t_input *input, t_token tok)
+static void	builder(t_lexer *l, t_input *input, t_cmd **first_cmd)
 {
-	t_cmd	*first_cmd;
 	t_cmd	*latest_cmd;
+	t_token	tok;
 	t_token	peek_tok;
 
-	first_cmd = new_t_cmd();
-	if (!first_cmd)
-		return (NULL);
-	latest_cmd = first_cmd;
+	tok = lex_next_token(l);
+	latest_cmd = *first_cmd;
 	while (tok.type != END && latest_cmd)
 	{
 		build_cmd(input, latest_cmd, &tok);
@@ -103,13 +68,26 @@ t_cmd	*build_chain(t_lexer *l, t_input *input, t_token tok)
 		if (peek_tok.type == END || peek_tok.type == PIPE)
 		{
 			if (peek_tok.type == END)
-				return (first_cmd);
+				return (free(peek_tok.literal));
 			latest_cmd = new_t_cmd();
-			t_cmd_add_back(&first_cmd, latest_cmd);
-			while (peek_tok.type == PIPE)
+			t_cmd_add_back(first_cmd, latest_cmd);
+			if (peek_tok.type == PIPE)
+				free(peek_tok.literal);
+			if (peek_tok.type == PIPE)
 				peek_tok = lex_next_token(l);
 		}
 		tok = peek_tok;
 	}
+	return (free(tok.literal));
+}
+
+t_cmd	*build_chain(t_lexer *l, t_input *input)
+{
+	t_cmd	*first_cmd;
+
+	first_cmd = new_t_cmd();
+	if (!first_cmd)
+		return (NULL);
+	builder(l, input, &first_cmd);
 	return (first_cmd);
 }
