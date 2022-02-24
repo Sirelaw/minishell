@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/24 17:33:57 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:43:06 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	expand_var(char **envp, char **str, size_t idx)
 	var = env_expand(envp, &(*str)[idx]);
 	(*str)[space] = value;
 	*str = str_replace(*str, idx, space, var);
-	//printf("%s\n", (*str));
-	//printf("%c\n", (*str)[idx]);
 }
 
 static void	expand_var_heredoc(char **envp, char **str, size_t idx)
