@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 19:23:31 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/13 18:13:16 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:05:33 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,17 @@ static void	handle_sigint(int sig)
 
 void	sig_handle_doc(void)
 {
+	struct termios		*terminal;
 	struct sigaction	action;
 
+	terminal = malloc(sizeof(struct termios));
+	tcgetattr(2, terminal);
+	if (terminal->c_lflag & ECHOCTL)
+		terminal->c_lflag = terminal->c_lflag ^ ECHOCTL;
+	tcsetattr(2, TCSANOW, terminal);
 	action.sa_handler = handle_sigint;
 	action.sa_flags = action.sa_flags | SA_RESETHAND;
 	sigaction(SIGINT, &action, NULL);
 	signal(SIGQUIT, SIG_IGN);
+	free(terminal);
 }

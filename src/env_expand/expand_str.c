@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/23 17:00:00 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:33:57 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	expand_var(char **envp, char **str, size_t idx)
 	var = env_expand(envp, &(*str)[idx]);
 	(*str)[space] = value;
 	*str = str_replace(*str, idx, space, var);
+	//printf("%s\n", (*str));
+	//printf("%c\n", (*str)[idx]);
 }
 
 static void	expand_var_heredoc(char **envp, char **str, size_t idx)
@@ -108,7 +110,10 @@ char	*expand_str(char **envp, char **str)
 			&& ft_strchr(&(*str)[idx + 1], '\''))
 			quote = '\'';
 		else if ((*str)[idx] == '$' && quote != '\'')
+		{
 			expand_var(envp, str, idx);
+			--idx;
+		}
 		++idx;
 	}
 	return (*str);
