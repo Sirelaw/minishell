@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:46 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/24 17:43:06 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:47:39 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,7 @@ char	*expand_str(char **envp, char **str)
 			&& ft_strchr(&(*str)[idx + 1], '\''))
 			quote = '\'';
 		else if ((*str)[idx] == '$' && quote != '\'')
-		{
 			expand_var(envp, str, idx);
-			--idx;
-		}
 		++idx;
 	}
 	return (*str);
