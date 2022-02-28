@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:03:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 14:53:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:33:09 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int		check_cmd(t_input *input, t_cmd *cmd_attr, int i);
 t_cmd	*new_t_cmd(void);
 void	t_cmd_add_back(t_cmd **head, t_cmd *latest);
 char	**add_to_arr(char ***arr, char *s);
+void	add_in_to_arr(char ***arr, char *infile);
+void	add_out_to_arr(char ***arr, char *outfile, char mode);
 int		here_doc(t_cmd *cmd, char *delimiter, int here_doc_id);
 void	free_arr(char **arr);
 void	free_all(t_input *input);

@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/25 14:40:52 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:26:31 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 	set_flags(cmd, tok);
 	if ((tok->type == WORD) && (cmd->re_in == TRUE))
 	{
-		add_to_arr(&cmd->infile, rm_quotes(tok->literal));
+		add_in_to_arr(&cmd->infile, rm_quotes(tok->literal));
 		cmd->re_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->re_out == TRUE))
 	{
-		add_to_arr(&cmd->outfile, rm_quotes(tok->literal));
+		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'W');
 		add_to_arr(&cmd->outfile_type, ft_strdup("W"));
 		cmd->re_out = FALSE;
 	}
@@ -48,7 +48,7 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 	}
 	else if ((tok->type == WORD) && (cmd->append_out == TRUE))
 	{
-		add_to_arr(&cmd->outfile, rm_quotes(tok->literal));
+		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'A');
 		add_to_arr(&cmd->outfile_type, ft_strdup("A"));
 		cmd->append_out = FALSE;
 	}
