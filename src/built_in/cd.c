@@ -6,23 +6,51 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:16:53 by sachmull          #+#    #+#             */
-/*   Updated: 2022/02/23 18:29:37 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:42:17 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <built_in.h>
 
-static void	update_cwd(char **envp)
+static void	update_pwd(char **envp)
 {
 	char	**argv;
-	char	*cwd;
+	char	*pwd;
+	size_t	len;
 
+	pwd = env_expand(g_shell_env.envp, "$PWD");
+	len = ft_strlen(pwd);
+	free(pwd);
+	if (!len)
+		return ;
 	argv = ft_calloc(3, sizeof(char *));
 	argv[0] = ft_strdup("export");
-	cwd = getcwd(NULL, 0);
-	argv[1] = ft_strjoin("PWD=", cwd);
+	pwd = getcwd(NULL, 0);
+	argv[1] = ft_strjoin("PWD=", pwd);
 	export(argv, &envp);
-	free(cwd);
+	free(pwd);
+	free(argv[0]);
+	free(argv[1]);
+	free(argv);
+}
+
+static void	update_oldpwd(void)
+{
+	char	**argv;
+	char	*oldpwd;
+	size_t	len;
+
+	oldpwd = env_expand(g_shell_env.envp, "$OLDPWD");
+	len = ft_strlen(oldpwd);
+	free(oldpwd);
+	if (!len)
+		return ;
+	argv = ft_calloc(3, sizeof(char *));
+	argv[0] = ft_strdup("export");
+	oldpwd = env_expand(g_shell_env.envp, "$PWD");
+	argv[1] = ft_strjoin("OLDPWD=", oldpwd);
+	export(argv, &g_shell_env.envp);
+	free(oldpwd);
 	free(argv[0]);
 	free(argv[1]);
 	free(argv);
@@ -51,7 +79,8 @@ int	cd(char **argv, char **envp)
 			return (1);
 		}
 	}
-	update_cwd(envp);
+	update_oldpwd();
+	update_pwd(envp);
 	free(home);
 	return (0);
 }
