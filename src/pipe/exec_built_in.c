@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:44:29 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 00:39:44 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:41:26 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	built_in_cmd(t_input *input, t_cmd *cmd, int i)
 		return (0);
 	dup_fds(input, cmd, i);
 	if (!ft_strcmp(cmd->cmds[0], "cd"))
-		g_shell_env.last_exit_code = cd(cmd->cmds, input->envp);
+		g_shell_env.last_exit_code = cd(cmd->cmds, g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "echo"))
 		g_shell_env.last_exit_code = echo(cmd->cmds);
 	else if (!ft_strcmp(cmd->cmds[0], "env"))
-		g_shell_env.last_exit_code = env(input->envp);
+		g_shell_env.last_exit_code = env(g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "export"))
 		g_shell_env.last_exit_code = export(cmd->cmds, &g_shell_env.envp);
 	else if (!ft_strcmp(cmd->cmds[0], "pwd"))
