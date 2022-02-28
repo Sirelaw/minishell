@@ -6,13 +6,13 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 00:55:13 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 02:06:30 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:41:33 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-static void	free_arr(char **arr)
+void	free_arr(char **arr)
 {
 	int	i;
 

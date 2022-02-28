@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 01:02:43 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:59:26 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ void	close_fds(int fd[2])
 int	do_init(t_input *input)
 {
 	int		i;
-	char	**envp;
 
-	envp = g_shell_env.envp;
+	input->here_doc_id = 0;
+	input->cmd_chain = NULL;
+	input->envp = g_shell_env.envp;
+	input->path = NULL;
 	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
+	while (g_shell_env.envp[i] && ft_strncmp(g_shell_env.envp[i], "PATH=", 5))
 		i++;
-	if (envp[i] == NULL)
+	if (g_shell_env.envp[i] == NULL)
 		return (1);
-	input->path = ft_split(&(envp[i][5]), ':');
+	input->path = ft_split(&((g_shell_env.envp)[i][5]), ':');
 	if ((input->path) == NULL)
 		return (1);
-	input->here_doc_id = 0;
-	input->envp = envp;
-	input->cmd_chain = NULL;
 	return (0);
 }
 
@@ -60,7 +59,7 @@ static void	do_exec(t_input *input, t_cmd *cmd, int i)
 	close_fds(cmd->fd);
 	close_fds(input->fd[0]);
 	close_fds(input->fd[1]);
-	execve(cmd->cmdpath, cmd->cmds, input->envp);
+	execve(cmd->cmdpath, cmd->cmds, g_shell_env.envp);
 	perror(cmd->cmds[0]);
 	exit(EXIT_FAILURE);
 }
