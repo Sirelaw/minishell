@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:41:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 18:37:12 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:22:00 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	here_doc(t_cmd *cmd, char *delimiter, int here_doc_id)
 	if (fd < 0)
 	{
 		perror("Could not open heredoc. Check for ./here_docs dir");
+		free(s);
 		free(delimiter);
 		return (1);
 	}
