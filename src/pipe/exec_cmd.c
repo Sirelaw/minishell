@@ -6,7 +6,7 @@
 /*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/25 14:43:14 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:25:28 by sachmull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ void	close_fds(int fd[2])
 int	do_init(t_input *input)
 {
 	int		i;
-	char	**envp;
 
-	envp = g_shell_env.envp;
+	input->here_doc_id = 0;
+	input->cmd_chain = NULL;
+	input->envp = g_shell_env.envp;
+	input->path = NULL;
 	i = 0;
 	while (g_shell_env.envp[i] && ft_strncmp(g_shell_env.envp[i], "PATH=", 5))
 		i++;
 	if (g_shell_env.envp[i] == NULL)
 		return (1);
-	input->path = ft_split(&(g_shell_env.envp[i][5]), ':');
+	input->path = ft_split(&((g_shell_env.envp)[i][5]), ':');
 	if ((input->path) == NULL)
 		return (1);
-	input->here_doc_id = 0;
-	//input->envp = envp;
-	input->cmd_chain = NULL;
 	return (0);
 }
 
