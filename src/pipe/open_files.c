@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 01:03:17 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 16:12:43 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:13:05 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,42 @@ static int	open_all_outfile(t_cmd *cmd)
 	return (0);
 }
 
-void	add_in_to_arr(char ***arr, char *infile)
+void	add_in_to_arr(char ***arr, char *infile, t_input *input)
 {
 	int	fd;
 
+	add_to_arr(arr, infile);
+	if (input->file_fail)
+		return ;
 	fd = open(infile, O_RDONLY);
 	if (fd < 0)
+	{
+		input->file_fail = 1;
 		perror(infile);
+	}
 	else
 		close(fd);
-	add_to_arr(arr, infile);
 }
 
-void	add_out_to_arr(char ***arr, char *outfile, char mode)
+void	add_out_to_arr(char ***arr, char *outfile, char mode, t_input *input)
 {
 	int			fd;
 	const int	m = O_WRONLY | O_CREAT;
 
+	add_to_arr(arr, outfile);
+	if (input->file_fail)
+		return ;
 	if (mode == 'A')
 		fd = open(outfile, m | O_APPEND, 0666);
 	else
 		fd = open(outfile, m | O_TRUNC, 0666);
 	if (fd < 0)
+	{
+		input->file_fail = 1;
 		perror(outfile);
+	}
 	else
 		close(fd);
-	add_to_arr(arr, outfile);
 }
 
 int	open_infile_outfile(t_cmd *cmd)

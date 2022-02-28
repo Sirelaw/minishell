@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:52:35 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 16:26:31 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:04:12 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
+
+static void	free_pipe_literal(char *s, t_input *input)
+{
+	free(s);
+	input->file_fail = 0;
+}
 
 static void	set_flags(t_cmd *cmd, t_token *tok)
 {
@@ -32,12 +38,12 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 	set_flags(cmd, tok);
 	if ((tok->type == WORD) && (cmd->re_in == TRUE))
 	{
-		add_in_to_arr(&cmd->infile, rm_quotes(tok->literal));
+		add_in_to_arr(&cmd->infile, rm_quotes(tok->literal), ip);
 		cmd->re_in = FALSE;
 	}
 	else if ((tok->type == WORD) && (cmd->re_out == TRUE))
 	{
-		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'W');
+		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'W', ip);
 		add_to_arr(&cmd->outfile_type, ft_strdup("W"));
 		cmd->re_out = FALSE;
 	}
@@ -48,12 +54,12 @@ static void	build_cmd(t_input *ip, t_cmd *cmd, t_token *tok)
 	}
 	else if ((tok->type == WORD) && (cmd->append_out == TRUE))
 	{
-		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'A');
+		add_out_to_arr(&cmd->outfile, rm_quotes(tok->literal), 'A', ip);
 		add_to_arr(&cmd->outfile_type, ft_strdup("A"));
 		cmd->append_out = FALSE;
 	}
 	else if (tok->type == WORD)
-		add_to_arr(&cmd->cmds, rm_quotes(expand_str(g_shell_env.envp, &tok->literal)));
+		add_to_arr(&cmd->cmds, rm_quotes(expand_str(ip->envp, &tok->literal)));
 }
 
 static void	builder(t_lexer *l, t_input *input, t_cmd **first_cmd)
@@ -75,7 +81,7 @@ static void	builder(t_lexer *l, t_input *input, t_cmd **first_cmd)
 			latest_cmd = new_t_cmd();
 			t_cmd_add_back(first_cmd, latest_cmd);
 			if (peek_tok.type == PIPE)
-				free(peek_tok.literal);
+				free_pipe_literal(peek_tok.literal, input);
 			if (peek_tok.type == PIPE)
 				peek_tok = lex_next_token(l);
 		}

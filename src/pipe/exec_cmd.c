@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sachmull <sachmull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 16:25:28 by sachmull         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:02:24 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	do_init(t_input *input)
 	int		i;
 
 	input->here_doc_id = 0;
+	input->file_fail = 0;
 	input->cmd_chain = NULL;
 	input->envp = g_shell_env.envp;
 	input->path = NULL;
