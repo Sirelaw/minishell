@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 11:23:44 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/23 01:56:39 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:02:05 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	check_cmd(t_input *input, t_cmd *cmd, int i)
 
 	s = NULL;
 	if ((cmd->infile && cmd->fd[0] < 0) || (cmd->outfile && cmd->fd[1] < 0))
-	{
 		g_shell_env.last_exit_code = 1;
+	if ((cmd->infile && cmd->fd[0] < 0) || (cmd->outfile && cmd->fd[1] < 0))
 		return (1);
-	}
 	if (built_in_cmd(input, cmd, i))
 		return (1);
 	g_shell_env.last_exit_code = 0;
-	if (ft_strnstr((cmd->cmds)[0], "/", ft_strlen((cmd->cmds)[0])))
+	if (ft_strnstr((cmd->cmds)[0], "/", ft_strlen((cmd->cmds)[0]))
+		|| !(input->path))
 	{
 		if (!(access((cmd->cmds)[0], X_OK)))
 		{

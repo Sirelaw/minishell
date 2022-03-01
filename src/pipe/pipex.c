@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:11:10 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 14:05:50 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 21:14:59 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	pipex(t_lexer *l)
 	{
 		free_all(input);
 		return (g_shell_env.last_exit_code);
-	}
+	}	
 	input->cmd_chain = build_chain(l, input);
 	if (input->cmd_chain->cmds)
 	{

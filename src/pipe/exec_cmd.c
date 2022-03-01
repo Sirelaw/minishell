@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 22:56:01 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/02/28 18:02:24 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/02/28 21:14:03 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	do_init(t_input *input)
 	while (g_shell_env.envp[i] && ft_strncmp(g_shell_env.envp[i], "PATH=", 5))
 		i++;
 	if (g_shell_env.envp[i] == NULL)
-		return (1);
+		return (0);
 	input->path = ft_split(&((g_shell_env.envp)[i][5]), ':');
 	if ((input->path) == NULL)
 		return (1);
