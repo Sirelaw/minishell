@@ -39,7 +39,7 @@ static void	expand_var(char **envp, char **str, size_t idx)
 	char	value;
 
 	space = idx;
-	while (!isspace((*str)[space]) && (*str)[space]
+	while (!ft_isspace((*str)[space]) && (*str)[space]
 		&& (*str)[space] != '"' && (*str)[space] != '\''
 		&& (*str)[space] != '=')
 		++space;
@@ -57,7 +57,7 @@ static void	expand_var_heredoc(char **envp, char **str, size_t idx)
 	char	value;
 
 	space = idx;
-	while (!isspace((*str)[space]) && (*str)[space] != '\''
+	while (!ft_isspace((*str)[space]) && (*str)[space] != '\''
 		&& (*str)[space] != '\"' && (*str)[space])
 		++space;
 	value = (*str)[space];

@@ -10,9 +10,8 @@ BLUE	= \033[34m
 
 # Compiling flags
 FLAGS = -Wall -Wextra -Werror -g
-LFLAGS = -L$$HOME/.brew/opt/readline/lib -lreadline
-CPFLAGS = -I$$HOME/.brew/opt/readline/include
-# -I/usr/include/readline
+LFLAGS = $(shell pkg-config readline --libs)
+CPFLAGS = $(shell pkg-config readline --cflags)
 
 # Folders
 SRC_DIR = ./src/
