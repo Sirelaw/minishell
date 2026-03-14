@@ -56,7 +56,7 @@ The project includes a custom-built lexer and parser to handle:
 As a shell is a long-running process, memory management is critical. We utilized Valgrind throughout development to ensure that all allocated memory is properly freed upon command completion or shell exit, and that no file descriptors are left "leaking" open.
 
 ## Compile
-Minishell is dependent on ```GNU readline```.</br>
+Minishell is dependent on ```GNU readline library```.</br>
 
 ```bash
 git clone https://github.com/Sirelaw/minishell.git
