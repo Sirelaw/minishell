@@ -4,7 +4,7 @@ Minishell is able to execute binaries, read from files, redirect output as well 
 
 ## The Engineering Perspective
 
-In embedded systems, understanding how an Operating System manages processes and communication is vital. Minishell demonstrates my expertise in:
+In embedded systems, understanding how an Operating System manages processes and communication is vital. Minishell demonstrates our expertise in:
 
 - Process Management: Utilizing fork, execve, and waitpid to manage lifecycle and execution.
 
